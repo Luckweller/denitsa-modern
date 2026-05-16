@@ -238,8 +238,20 @@ const aboutContent = {
 
 const cafeContent = {
   title: "Кафе на территории",
-  text: "На территории комплекса работает кафе для гостей базы отдыха. Здесь можно позавтракать, пообедать или поужинать после прогулок по Адыгее. Подходит для семей, туристических групп и компаний.",
-  features: ["Завтраки", "Домашняя кухня", "Зона для семей", "Уютный интерьер", "Возможность группового питания"],
+  subtitle: "Уютное кафе в деревянном стиле с видом на горы",
+  text: "На территории базы отдыха работает кафе для гостей: просторный зал, деревянная мебель, барная стойка, большие окна и спокойная атмосфера после прогулок по Адыгее.",
+  description: "Кафе подходит для завтраков, обедов, ужинов, семейного отдыха, туристических групп и небольших компаний. Здесь удобно собраться перед экскурсией или провести вечер после бани, прогулки или поездки по маршрутам.",
+  features: ["Просторный зал", "Деревянный интерьер", "Барная стойка", "Большие окна", "Подходит для семей", "Для туристических групп", "Завтраки", "Ужины после прогулок"],
+  gallery: [
+    "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%288%29.jpeg?bwg=1580578839",
+    "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%285%29.jpeg?bwg=1580578839",
+    "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%287%29.jpeg?bwg=1580578839",
+    "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%286%29.jpeg?bwg=1580578839",
+    "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%281%29.jpeg?bwg=1580578839",
+    "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%282%29.jpeg?bwg=1580578839",
+    "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%283%29.jpeg?bwg=1580578839",
+    "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%284%29.jpeg?bwg=1580578839",
+  ],
 };
 
 const rulesContent = ["Заезд с 15:00", "Выезд до 12:00", "Размещение с питомцами до 15 кг", "Курение в номерах запрещено", "Бронирование подтверждается администратором", "На территории действует режим тишины"];
@@ -271,8 +283,6 @@ const servicesContent = [
     image: "https://denitsa.ru/wp-content/uploads/2019/10/konnye_progulki_dennica.jpg",
     gallery: [
       "https://denitsa.ru/wp-content/uploads/2019/10/konnye_progulki_dennica.jpg",
-      "https://denitsa.ru/wp-content/uploads/2019/10/konnye_progulki_dennica.jpg",
-      "https://denitsa.ru/wp-content/uploads/2019/10/konnye_progulki_dennica.jpg",
     ],
   },
   {
@@ -285,8 +295,6 @@ const servicesContent = [
     items: ["Маршруты разной сложности", "Прогулочные сплавы", "Экстремальные маршруты", "Сопровождение инструкторов"],
     image: "https://denitsa.ru/wp-content/uploads/2019/10/rafting_v_adygee.jpg",
     gallery: [
-      "https://denitsa.ru/wp-content/uploads/2019/10/rafting_v_adygee.jpg",
-      "https://denitsa.ru/wp-content/uploads/2019/10/rafting_v_adygee.jpg",
       "https://denitsa.ru/wp-content/uploads/2019/10/rafting_v_adygee.jpg",
     ],
   },
@@ -333,8 +341,6 @@ const servicesContent = [
     image: "https://denitsa.ru/wp-content/uploads/2019/12/bannij_kompleks_s_bassejnom.jpg",
     gallery: [
       "https://denitsa.ru/wp-content/uploads/2019/12/bannij_kompleks_s_bassejnom.jpg",
-      "https://denitsa.ru/wp-content/uploads/2019/12/bannij_kompleks_s_bassejnom.jpg",
-      "https://denitsa.ru/wp-content/uploads/2019/12/bannij_kompleks_s_bassejnom.jpg",
     ],
   },
   {
@@ -347,8 +353,6 @@ const servicesContent = [
     items: ["Из Краснодара", "До станицы Даховская", "По предварительному заказу"],
     image: "https://denitsa.ru/wp-content/uploads/2019/12/transfer_dennica.jpg",
     gallery: [
-      "https://denitsa.ru/wp-content/uploads/2019/12/transfer_dennica.jpg",
-      "https://denitsa.ru/wp-content/uploads/2019/12/transfer_dennica.jpg",
       "https://denitsa.ru/wp-content/uploads/2019/12/transfer_dennica.jpg",
     ],
   },
@@ -379,6 +383,7 @@ export const denitsaPrototypeSmokeTests = {
   hasVisitPages: visitPages.length >= 5,
   hasAboutContent: aboutContent.features.length >= 5,
   hasCafeContent: cafeContent.features.length >= 5,
+  hasCafeGallery: cafeContent.gallery.length >= 8,
   hasRules: rulesContent.length >= 5,
   hasServicesContent: servicesContent.length >= 7,
   hasExcursionServices: excursionServices.length >= 4,
@@ -609,21 +614,6 @@ export default function DenitsaHomepagePrototype() {
         </div>
       </section>
 
-      <section id="site-structure" className="bg-white py-24">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <SectionTitle eyebrow="Структура сайта" title="Полноценный сайт, а не только один лендинг" text="Главная остается продающей страницей, а остальные разделы становятся отдельными SEO-страницами. Так сайт лучше индексируется и удобнее для гостей." />
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {siteSections.map(([title, description, href]) => (
-              <a key={title} href={href} className="group rounded-[2rem] border border-[#2D2A26]/10 bg-[#F5F1EA] p-6 transition hover:-translate-y-1 hover:shadow-xl">
-                <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#7A8B6F]"><ChevronRight className="h-5 w-5 transition group-hover:translate-x-1" /></div>
-                <h3 className="text-xl font-semibold">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#2D2A26]/62">{description}</p>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section id="rooms" className="bg-[#2D2A26] py-24 text-white">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
@@ -660,7 +650,7 @@ export default function DenitsaHomepagePrototype() {
 
       <section id="room-pages" className="bg-[#F5F1EA] py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <SectionTitle eyebrow="Страницы номеров" title="Отдельные страницы с фото и описанием" text="Ниже — заготовки отдельных страниц для каждого номера. Их можно вынести в маршруты Next.js: /rooms/teremok, /rooms/family-fireplace и так далее." />
+          <SectionTitle eyebrow="Номера" title="Подробная информация по каждому номеру" />
           <div className="grid gap-10">
             {roomPages.map((room) => (
               <article id={`room-${room.slug}`} key={room.slug} className="overflow-hidden rounded-[2.5rem] bg-white shadow-sm">
@@ -719,9 +709,7 @@ export default function DenitsaHomepagePrototype() {
             <div>
               <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#7A8B6F]">Услуги базы</p>
               <h2 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] md:text-6xl">Баня, барбекю и трансфер</h2>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-[#2D2A26]/65">
-                Отдельный раздел для услуг на территории базы и удобства гостей.
-              </p>
+              
             </div>
             <a href="/uslugi/" className="inline-flex items-center text-[#2D2A26]/65 hover:text-[#2D2A26]">Раздел услуг <ChevronRight className="ml-1 h-4 w-4" /></a>
           </div>
@@ -759,9 +747,7 @@ export default function DenitsaHomepagePrototype() {
             <div>
               <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#7A8B6F]">Экскурсии и активный отдых</p>
               <h2 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] md:text-6xl">Маршруты, сплавы, кони и джиппинг</h2>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-[#2D2A26]/65">
-                Отдельный раздел для активностей и маршрутов по Адыгее со старого сайта.
-              </p>
+              
             </div>
             <a href="/ekskursii/" className="inline-flex items-center text-[#2D2A26]/65 hover:text-[#2D2A26]">Раздел экскурсий <ChevronRight className="ml-1 h-4 w-4" /></a>
           </div>
@@ -789,11 +775,7 @@ export default function DenitsaHomepagePrototype() {
 
       <section id="service-pages" className="bg-[#F5F1EA] py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <SectionTitle
-            eyebrow="Детальные страницы услуг"
-            title="Заготовки страниц под каждую услугу"
-            text="Эти блоки можно вынести в отдельные страницы: /ekskursii, /rafting, /dzhipping, /konnye-progulki и другие."
-          />
+          <SectionTitle eyebrow="Услуги" title="Все услуги и активности" />
           <div className="grid gap-8">
             {servicesContent.map((service, index) => (
               <article key={service.slug} className="overflow-hidden rounded-[2.5rem] bg-white shadow-sm">
@@ -823,19 +805,55 @@ export default function DenitsaHomepagePrototype() {
       </section>
 
       <section id="cafe" className="bg-[#F5F1EA] py-24">
-        <div className="mx-auto grid max-w-7xl gap-6 px-5 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <div className="rounded-[2.5rem] bg-[#E7DFD3] p-8 md:p-12">
-            <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#7A8B6F]">Кафе</p><h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">{cafeContent.title}</h2><p className="mt-7 text-lg leading-8 text-[#2D2A26]/65">{cafeContent.text}</p>
-            <div className="mt-8 flex flex-wrap gap-3">{cafeContent.features.map((feature) => <span key={feature} className="rounded-full bg-white px-4 py-2 text-sm text-[#2D2A26]/75 shadow-sm">{feature}</span>)}</div>
-            <a href="/kafe/" className="mt-8 inline-flex rounded-full bg-[#2D2A26] px-6 py-4 font-medium text-white hover:bg-[#B38A5A]">Открыть раздел кафе</a>
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="mb-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div>
+              <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#7A8B6F]">Кафе</p>
+              <h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">{cafeContent.title}</h2>
+              <p className="mt-6 text-xl leading-8 text-[#2D2A26]/70">{cafeContent.subtitle}</p>
+            </div>
+            <div className="rounded-[2rem] bg-white p-6 shadow-sm">
+              <p className="text-lg leading-8 text-[#2D2A26]/68">{cafeContent.text}</p>
+            </div>
           </div>
-          <div className="overflow-hidden rounded-[2.5rem] bg-white p-3"><img src="https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-15.01.06.jpeg" alt="Кафе и кухня Денница" onError={handleImageError} className="h-full min-h-[420px] w-full rounded-[2rem] object-cover" /></div>
+
+          <div className="grid gap-3 md:grid-cols-4">
+            {cafeContent.gallery.map((image, index) => (
+              <button
+                key={image}
+                type="button"
+                onClick={() => setSelectedImage(image)}
+                className={index === 0 ? "group min-h-[520px] overflow-hidden rounded-[2.5rem] text-left md:col-span-2 md:row-span-2" : "group min-h-[250px] overflow-hidden rounded-[2rem] text-left"}
+              >
+                <img src={image} alt={`Кафе Денница — фото ${index + 1}`} onError={handleImageError} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="rounded-[2.5rem] bg-[#E7DFD3] p-8 md:p-12">
+              <h3 className="text-3xl font-semibold tracking-[-0.03em] md:text-5xl">После гор, экскурсий и бани — в уютное кафе</h3>
+              <p className="mt-6 text-lg leading-8 text-[#2D2A26]/68">{cafeContent.description}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                {cafeContent.features.map((feature) => (
+                  <span key={feature} className="rounded-full bg-white px-4 py-2 text-sm text-[#2D2A26]/75 shadow-sm">{feature}</span>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-[2.5rem] bg-white p-8 shadow-sm md:p-12">
+              <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#7A8B6F]">Для гостей</p>
+              <h3 className="text-3xl font-semibold tracking-[-0.03em]">Удобно для семей, компаний и туристических групп</h3>
+              <p className="mt-6 leading-8 text-[#2D2A26]/65">Уютное пространство для завтраков, ужинов и отдыха после прогулок по Адыгее.</p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a href="#booking" className="inline-flex items-center justify-center rounded-full bg-[#2D2A26] px-6 py-4 font-medium text-white hover:bg-[#B38A5A]">Забронировать</a>
+                <a href="/kafe/" className="inline-flex items-center justify-center rounded-full border border-[#2D2A26]/15 px-6 py-4 font-medium text-[#2D2A26] hover:bg-[#F5F1EA]">Старая страница кафе</a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section id="places" className="bg-white py-24"><div className="mx-auto max-w-7xl px-5 lg:px-8"><SectionTitle eyebrow="Что рядом" title="Главные места Адыгеи рядом с вами" /><div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">{places.map(([name, time]) => <div key={name} className="rounded-[2rem] border border-[#2D2A26]/10 bg-[#F5F1EA] p-6"><MapPin className="mb-8 h-6 w-6 text-[#7A8B6F]" /><h3 className="text-xl font-semibold">{name}</h3><p className="mt-2 text-[#2D2A26]/60">{time}</p></div>)}</div></div></section>
-
-      <section id="visit-pages" className="bg-[#2D2A26] py-24 text-white"><div className="mx-auto max-w-7xl px-5 lg:px-8"><div className="mb-12 max-w-3xl"><p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#B38A5A]">Что посетить</p><h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">Отдельные SEO-страницы по маршрутам</h2><p className="mt-6 text-lg leading-8 text-white/65">Эти страницы важны для поиска: гости часто ищут не базу отдыха, а конкретные места рядом — Лаго‑Наки, Руфабго, Хаджохскую теснину и маршруты по Адыгее.</p></div><div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">{visitPages.map(([title, href]) => <a key={title} href={href} className="rounded-[2rem] bg-white/8 p-6 ring-1 ring-white/10 transition hover:bg-white/12"><MapPin className="mb-8 h-6 w-6 text-[#B38A5A]" /><h3 className="text-lg font-semibold">{title}</h3><p className="mt-3 text-sm leading-6 text-white/60">Маршрут, расстояние, фото, советы и CTA забронировать отдых.</p></a>)}</div></div></section>
 
       <section id="rules" className="bg-[#F5F1EA] py-24"><div className="mx-auto max-w-7xl px-5 lg:px-8"><SectionTitle eyebrow="Правила проживания" title="Важная информация перед заездом" /><div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{rulesContent.map((rule) => <div key={rule} className="rounded-[2rem] bg-white p-6 shadow-sm"><Clock className="mb-6 h-6 w-6 text-[#7A8B6F]" /><div className="text-lg font-medium">{rule}</div></div>)}</div></div></section>
 
