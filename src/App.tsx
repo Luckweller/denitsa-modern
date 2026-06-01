@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
+  ArrowRight,
   Bath,
+  CalendarDays,
   Car,
   ChevronRight,
   Flame,
@@ -19,7 +21,7 @@ import {
 
 const phone = "+7 953 091-25-21";
 const phoneHref = "tel:+79530912521";
-const whatsappHref = "https://wa.me/79530912521";
+const maxHref = "https://max.ru/79530912521";
 const email = "dennitsa_otdyh@mail.ru";
 const address = "Республика Адыгея, Майкопский район, станица Даховская, ул. Речная, 17";
 
@@ -83,13 +85,13 @@ const rooms = [
 ];
 
 const advantages = [
-  [Waves, "Бассейн"],
-  [Flame, "Банный комплекс"],
-  [PawPrint, "Можно с питомцами"],
-  [Car, "Парковка"],
-  [Wifi, "Wi‑Fi"],
-  [Trees, "Беседки и мангалы"],
-] as const;
+  { Icon: Waves, title: "Бассейн" },
+  { Icon: Flame, title: "Банный комплекс" },
+  { Icon: PawPrint, title: "Можно с питомцами" },
+  { Icon: Car, title: "Парковка" },
+  { Icon: Wifi, title: "Wi‑Fi" },
+  { Icon: Trees, title: "Беседки и мангалы" },
+];
 
 const roomDetails = [
   {
@@ -215,7 +217,7 @@ const cafeGallery = [
   "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%287%29.jpeg?bwg=1580578839",
 ];
 
-function safeImage(event: React.SyntheticEvent<HTMLImageElement>) {
+function safeImage(event) {
   event.currentTarget.onerror = null;
   event.currentTarget.src = heroImage;
 }
@@ -229,7 +231,7 @@ function DenitsaLogo() {
   );
 }
 
-function SectionTitle({ eyebrow, title, text }: { eyebrow: string; title: string; text?: string }) {
+function SectionTitle({ eyebrow, title, text }) {
   return (
     <div className="mb-12 max-w-3xl">
       <p className="mb-4 text-sm uppercase tracking-[0.28em] text-[#7A8B6F]">{eyebrow}</p>
@@ -239,7 +241,7 @@ function SectionTitle({ eyebrow, title, text }: { eyebrow: string; title: string
   );
 }
 
-function RevealSection({ children, className = "", id }: { children: React.ReactNode; className?: string; id?: string }) {
+function RevealSection({ children, className = "", id }) {
   return (
     <motion.section
       id={id}
@@ -255,7 +257,7 @@ function RevealSection({ children, className = "", id }: { children: React.React
   );
 }
 
-function PremiumPhotoButton({ children, className = "", onClick }: { children: React.ReactNode; className?: string; onClick: () => void }) {
+function PremiumPhotoButton({ children, className = "", onClick }) {
   return (
     <button
       type="button"
@@ -269,14 +271,13 @@ function PremiumPhotoButton({ children, className = "", onClick }: { children: R
 
 export default function DenitsaHomepagePreview() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   return (
     <main className="min-h-screen bg-[#F5F1EA] text-[#2D2A26]">
       <style>{`
         html { scroll-behavior: smooth; }
         @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-        @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
         .premium-photo::after {
           content: "";
           position: absolute;
@@ -307,7 +308,10 @@ export default function DenitsaHomepagePreview() {
 
           <div className="hidden items-center gap-3 lg:flex">
             <a className="rounded-full border border-white/15 px-5 py-2 text-sm text-white/80 transition duration-300 hover:bg-white/10 hover:text-white" href={phoneHref}>{phone}</a>
-            <a className="rounded-full bg-white px-5 py-2 text-sm font-medium text-[#2D2A26] transition duration-300 hover:bg-[#E7DFD3]" href={whatsappHref}>WhatsApp</a>
+            <a className="group relative overflow-hidden rounded-full bg-white/95 px-6 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-[#2D2A26] shadow-[0_14px_40px_rgba(255,255,255,0.14)] ring-1 ring-white/35 transition duration-300 hover:-translate-y-0.5 hover:bg-[#F5F1EA] hover:shadow-[0_18px_50px_rgba(255,255,255,0.2)]" href={maxHref}>
+              <span className="pointer-events-none absolute inset-y-0 -left-10 w-8 rotate-12 bg-white/45 blur-md transition duration-700 group-hover:left-[120%]" />
+              <span className="relative">MAX</span>
+            </a>
           </div>
 
           <button onClick={() => setIsMenuOpen(true)} className="rounded-full border border-white/25 p-2 lg:hidden" aria-label="Открыть меню">
@@ -345,79 +349,76 @@ export default function DenitsaHomepagePreview() {
             </nav>
 
             <div className="absolute bottom-8 left-6 right-6 grid gap-3">
-              <a href={whatsappHref} className="rounded-full bg-white px-6 py-4 text-center font-medium text-[#2D2A26]">Написать в WhatsApp</a>
+              <a href={maxHref} className="rounded-full bg-white px-6 py-4 text-center font-medium text-[#2D2A26]">Написать в MAX</a>
               <a href={phoneHref} className="rounded-full border border-white/20 px-6 py-4 text-center font-medium text-white">{phone}</a>
             </div>
           </motion.div>
         ) : null}
       </AnimatePresence>
 
-      <section className="relative min-h-[92vh] overflow-hidden md:min-h-[100vh]">
-        <div className="absolute inset-0 bg-cover bg-center [animation:heroZoom_38s_ease-in-out_infinite_alternate]" style={{ backgroundImage: `url('${heroImage}')` }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/45" />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#B38A5A]/18 blur-[120px]" />
-        <div className="pointer-events-none absolute bottom-20 right-10 h-64 w-64 rounded-full bg-white/10 blur-[90px]" />
-        <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#F5F1EA] to-transparent" />
+      <section className="relative min-h-[100svh] overflow-hidden md:min-h-[100vh]">
+        <video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  poster={heroImage}
+  className="absolute inset-0 h-full w-full object-cover md:hidden"
+>
+  <source src="/videos/hero-mobile.webm" type="video/webm" />
+  <source src="/videos/hero-mobile.mp4" type="video/mp4" />
+</video>
 
-        <div className="relative z-10 mx-auto flex min-h-[92vh] max-w-6xl flex-col items-center justify-center px-5 pb-20 pt-28 text-center md:min-h-[100vh] md:px-6 md:pb-24 md:pt-32 lg:px-8">
+{/* Desktop hero video */}
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  poster={heroImage}
+  className="absolute inset-0 hidden h-full w-full object-cover md:block"
+>
+  <source src="/videos/hero-loop.webm" type="video/webm" />
+  <source src="/videos/hero-loop.mov" type="video/quicktime" />
+</video>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/42 via-black/18 to-black/36 md:from-black/34 md:via-black/10 md:to-black/22" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#B38A5A]/5 blur-[120px]" />
+        <div className="pointer-events-none absolute bottom-20 right-10 h-64 w-64 rounded-full bg-white/3 blur-[90px]" />
+        
+        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col items-center justify-center px-5 pb-16 pt-32 text-center md:min-h-[100vh] md:px-6 md:pb-24 md:pt-32 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ ...smoothTransition, delay: 0.15 }} className="flex flex-col items-center">
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm text-white/85 backdrop-blur-md">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs text-white/85 backdrop-blur-md sm:text-sm md:px-5">
               <Mountain className="h-4 w-4" />
               Даховская · Адыгея
             </div>
 
-            <h1 className="max-w-5xl text-[42px] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="max-w-5xl text-[38px] font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
               Тихий отдых в горах Адыгеи
             </h1>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-white/72 md:mt-6 md:text-xl md:leading-8">
+            <p className="mt-5 max-w-[340px] text-[17px] leading-7 text-white/72 md:mt-6 md:max-w-2xl md:text-xl md:leading-8">
               Домики и номера с бассейном, банным комплексом и природой вокруг.
             </p>
 
-            <div className="mt-7 flex max-w-[340px] flex-wrap justify-center gap-2 text-xs text-white/80 sm:max-w-none sm:gap-3 sm:text-sm">
+            <div className="mt-6 flex max-w-[330px] flex-wrap justify-center gap-2 text-[12px] text-white/80 sm:max-w-none sm:gap-3 sm:text-sm">
               {["Бассейн", "Баня 200 м²", "Кафе", "Рядом с Лаго-Наки", "Можно с питомцами"].map((item) => (
-                <span key={item} className="rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-md">{item}</span>
+                <span key={item} className="rounded-full border border-white/15 bg-white/10 px-3.5 py-2 backdrop-blur-md md:px-4">{item}</span>
               ))}
             </div>
 
-            <div className="mt-9 flex w-full max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
-              <a href={whatsappHref} className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-medium text-[#2D2A26] transition duration-300 hover:bg-[#E7DFD3]">
-                <MessageCircle className="h-5 w-5" />
-                Написать в WhatsApp
+            <div className="mt-8 flex w-full max-w-[350px] flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
+              <a href={maxHref} className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-medium text-[#2D2A26] shadow-[0_18px_60px_rgba(255,255,255,0.16)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#E7DFD3]">
+                <CalendarDays className="h-5 w-5" />
+                Забронировать
+                <ArrowRight className="h-4 w-4" />
               </a>
-              <a href={phoneHref} className="inline-flex min-h-[54px] items-center justify-center rounded-full border border-white/20 px-7 py-4 text-base font-medium text-white backdrop-blur-sm transition duration-300 hover:bg-white/10">
-                Позвонить
+              <a href="#rooms" className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/25 bg-black/10 px-7 py-4 text-base font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-white/10">
+                Смотреть номера
               </a>
-            </div>
-
-            <div className="mt-10 grid w-full max-w-5xl gap-3 rounded-[1.7rem] border border-white/15 bg-white/10 p-3 shadow-[0_20px_80px_rgba(0,0,0,0.18)] backdrop-blur-xl sm:mt-14 md:grid-cols-4 md:gap-4 md:rounded-[2.2rem] md:p-4">
-              {[
-                ["Бассейн", "Открытая зона отдыха"],
-                ["Баня", "Комплекс более 200 м²"],
-                ["Маршруты", "Руфабго и Лаго-Наки"],
-                ["Домики", "Для семьи и компании"],
-              ].map(([title, text]) => (
-                <div key={title} className="rounded-[1.3rem] bg-white/10 p-4 text-left transition duration-300 hover:bg-white/[0.14] md:rounded-[1.6rem] md:p-5">
-                  <div className="text-xl font-semibold text-white">{title}</div>
-                  <div className="mt-2 text-sm leading-6 text-white/70">{text}</div>
-                </div>
-              ))}
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      <section className="relative z-20 mx-auto -mt-10 max-w-7xl px-5 md:-mt-14 lg:px-8">
-        <div className="pointer-events-none absolute -top-16 left-1/2 h-28 w-[90vw] -translate-x-1/2 rounded-full bg-[#F5F1EA]/70 blur-3xl" />
-        <div className="grid gap-2 rounded-[1.6rem] bg-white p-3 shadow-xl sm:grid-cols-2 md:grid-cols-3 md:gap-3 md:rounded-[2rem] md:p-4 lg:grid-cols-6">
-          {advantages.map(([Icon, title]) => (
-            <div key={title} className="flex items-center gap-3 rounded-2xl bg-[#F5F1EA] p-4">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#7A8B6F]/15 text-[#7A8B6F]">
-                <Icon className="h-5 w-5" />
-              </div>
-              <div className="text-sm font-medium">{title}</div>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -434,12 +435,12 @@ export default function DenitsaHomepagePreview() {
 
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {[
-            [MapPin, "Рядом с маршрутами", "Быстрый доступ к главным местам Адыгеи."],
-            [Bath, "Банный комплекс", "Парная, холодный бассейн, горячая купель, бильярд и гостиная."],
-            [Trees, "Своя территория", "Бассейн, беседки, мангалы и зоны отдыха."],
-            [PawPrint, "Можно с питомцем", "Размещение с питомцами до 15 кг по правилам комплекса."],
-          ].map(([Icon, title, text]) => (
-            <motion.div key={title as string} variants={smoothReveal} transition={smoothTransition} className="rounded-[2rem] bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-xl">
+            { Icon: MapPin, title: "Рядом с маршрутами", text: "Быстрый доступ к главным местам Адыгеи." },
+            { Icon: Bath, title: "Банный комплекс", text: "Парная, холодный бассейн, горячая купель, бильярд и гостиная." },
+            { Icon: Trees, title: "Своя территория", text: "Бассейн, беседки, мангалы и зоны отдыха." },
+            { Icon: PawPrint, title: "Можно с питомцем", text: "Размещение с питомцами до 15 кг по правилам комплекса." },
+          ].map(({ Icon, title, text }) => (
+            <motion.div key={title} variants={smoothReveal} transition={smoothTransition} className="rounded-[2rem] bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-xl">
               <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#E7DFD3]">
                 <Icon className="h-6 w-6" />
               </div>
@@ -459,7 +460,7 @@ export default function DenitsaHomepagePreview() {
               <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#B38A5A]">Номера и домики</p>
               <h2 className="max-w-2xl text-4xl font-semibold tracking-[-0.04em] md:text-6xl">Выберите свой формат отдыха</h2>
             </div>
-            <a className="inline-flex items-center text-white/75 hover:text-white" href={whatsappHref}>Уточнить наличие <ChevronRight className="ml-1 h-4 w-4" /></a>
+            <a className="inline-flex items-center text-white/75 hover:text-white" href={maxHref}>Уточнить наличие <ChevronRight className="ml-1 h-4 w-4" /></a>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-3">
@@ -489,7 +490,7 @@ export default function DenitsaHomepagePreview() {
       <RevealSection id="room-details" className="relative bg-[#F5F1EA] py-20 md:py-28">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#2D2A26]/10 to-transparent" />
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <SectionTitle eyebrow="Номера подробно" title="Посмотрите фото и детали каждого варианта" text="Каждый номер можно открыть, посмотреть галерею и быстро перейти к бронированию через WhatsApp." />
+          <SectionTitle eyebrow="Номера подробно" title="Посмотрите фото и детали каждого варианта" text="Каждый номер можно открыть, посмотреть галерею и быстро перейти к бронированию через MAX." />
 
           <div className="grid gap-10">
             {roomDetails.map((room) => (
@@ -520,7 +521,7 @@ export default function DenitsaHomepagePreview() {
                     </div>
 
                     <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                      <a href={whatsappHref} className="inline-flex items-center justify-center rounded-full bg-[#2D2A26] px-6 py-4 font-medium text-white transition duration-300 hover:bg-[#B38A5A]">Забронировать</a>
+                      <a href={maxHref} className="inline-flex items-center justify-center rounded-full bg-[#2D2A26] px-6 py-4 font-medium text-white transition duration-300 hover:bg-[#B38A5A]">Забронировать</a>
                       <button type="button" onClick={() => setSelectedImage(room.gallery[0])} className="inline-flex items-center justify-center rounded-full border border-[#2D2A26]/15 px-6 py-4 font-medium text-[#2D2A26] transition duration-300 hover:bg-[#F5F1EA]">Смотреть фото</button>
                     </div>
                   </div>
@@ -573,7 +574,7 @@ export default function DenitsaHomepagePreview() {
                 <div className="p-7">
                   <h3 className="text-2xl font-semibold tracking-[-0.03em]">{service.title}</h3>
                   <p className="mt-4 leading-7 text-[#2D2A26]/65">{service.text}</p>
-                  <a href={whatsappHref} className="mt-7 inline-flex rounded-full bg-white px-5 py-3 text-sm font-medium text-[#2D2A26] transition duration-300 hover:bg-[#E7DFD3]">Уточнить</a>
+                  <a href={maxHref} className="mt-7 inline-flex rounded-full bg-white px-5 py-3 text-sm font-medium text-[#2D2A26] transition duration-300 hover:bg-[#E7DFD3]">Уточнить</a>
                 </div>
               </article>
             ))}
@@ -596,7 +597,7 @@ export default function DenitsaHomepagePreview() {
 
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold tracking-[-0.03em] text-[#2D2A26]">{item.title}</h3>
-                  <a href={whatsappHref} className="mt-6 inline-flex rounded-full bg-[#F5F1EA] px-5 py-3 text-sm font-medium text-[#2D2A26] transition duration-300 hover:bg-[#E7DFD3]">Подробнее</a>
+                  <a href={maxHref} className="mt-6 inline-flex rounded-full bg-[#F5F1EA] px-5 py-3 text-sm font-medium text-[#2D2A26] transition duration-300 hover:bg-[#E7DFD3]">Подробнее</a>
                 </div>
               </article>
             ))}
@@ -646,12 +647,12 @@ export default function DenitsaHomepagePreview() {
           <div>
             <p className="mb-4 text-sm uppercase tracking-[0.25em] text-white/70">Бронирование</p>
             <h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">Подберем номер под ваши даты</h2>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">Напишите в WhatsApp или позвоните — администратор уточнит даты, количество гостей и предложит подходящий вариант.</p>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">Напишите в MAX или позвоните — администратор уточнит даты, количество гостей и предложит подходящий вариант.</p>
             <p className="mt-5 text-white/70">{address}<br />{email}</p>
           </div>
           <div className="grid gap-3 rounded-[2rem] bg-white p-5 text-[#2D2A26] shadow-2xl">
-            <a href={whatsappHref} className="flex items-center justify-center gap-2 rounded-2xl bg-[#2D2A26] px-6 py-4 font-medium text-white transition duration-300 hover:bg-[#7A8B6F]">
-              <MessageCircle className="h-4 w-4" /> Написать в WhatsApp
+            <a href={maxHref} className="flex items-center justify-center gap-2 rounded-2xl bg-[#2D2A26] px-6 py-4 font-medium text-white transition duration-300 hover:bg-[#7A8B6F]">
+              <MessageCircle className="h-4 w-4" /> Написать в MAX
             </a>
             <a href={phoneHref} className="flex items-center justify-center gap-2 rounded-2xl border border-[#2D2A26]/10 px-6 py-4 font-medium transition duration-300 hover:bg-[#F5F1EA]">
               <Phone className="h-4 w-4" /> {phone}
@@ -676,9 +677,9 @@ export default function DenitsaHomepagePreview() {
             </div>
 
             <div className="grid gap-4 rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-              <a href={whatsappHref} className="flex min-h-[58px] items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 text-base font-medium text-[#2D2A26] transition duration-300 hover:bg-[#E7DFD3]">
+              <a href={maxHref} className="flex min-h-[58px] items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 text-base font-medium text-[#2D2A26] transition duration-300 hover:bg-[#E7DFD3]">
                 <MessageCircle className="h-5 w-5" />
-                Написать в WhatsApp
+                Написать в MAX
               </a>
 
               <a href={phoneHref} className="flex min-h-[58px] items-center justify-center gap-2 rounded-2xl border border-white/15 px-6 py-4 text-base font-medium text-white transition duration-300 hover:bg-white/10">
@@ -705,10 +706,6 @@ export default function DenitsaHomepagePreview() {
           </div>
         </div>
       </footer>
-
-      <a href={whatsappHref} className="fixed bottom-5 right-5 z-50 hidden rounded-full border border-white/20 bg-[#2D2A26]/85 px-5 py-4 text-sm font-medium text-white shadow-2xl backdrop-blur-xl transition duration-300 hover:bg-[#7A8B6F] md:inline-flex">
-        WhatsApp
-      </a>
 
       <AnimatePresence>
         {selectedImage ? (
