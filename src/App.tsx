@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, type MouseEvent, type MouseEventHandler, type ReactNode, type SyntheticEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
@@ -34,9 +34,12 @@ const smoothReveal = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
+const smoothEase = [0.16, 1, 0.3, 1] as const;
+const softEase = [0.22, 1, 0.36, 1] as const;
+
 const smoothTransition = {
   duration: 1.15,
-  ease: [0.16, 1, 0.3, 1],
+  ease: smoothEase,
 };
 
 const rooms = [
@@ -217,7 +220,7 @@ const cafeGallery = [
   "https://denitsa.ru/wp-content/uploads/photo-gallery/kafe_dennitsa_%287%29.jpeg?bwg=1580578839",
 ];
 
-function safeImage(event) {
+function safeImage(event: SyntheticEvent<HTMLImageElement>) {
   event.currentTarget.onerror = null;
   event.currentTarget.src = heroImage;
 }
@@ -231,7 +234,13 @@ function DenitsaLogo() {
   );
 }
 
-function SectionTitle({ eyebrow, title, text }) {
+type SectionTitleProps = {
+  eyebrow: string;
+  title: string;
+  text?: string;
+};
+
+function SectionTitle({ eyebrow, title, text }: SectionTitleProps) {
   return (
     <div className="mb-12 max-w-3xl">
       <p className="mb-4 text-sm uppercase tracking-[0.28em] text-[#7A8B6F]">{eyebrow}</p>
@@ -241,7 +250,13 @@ function SectionTitle({ eyebrow, title, text }) {
   );
 }
 
-function RevealSection({ children, className = "", id }) {
+type RevealSectionProps = {
+  children: ReactNode;
+  className?: string;
+  id?: string;
+};
+
+function RevealSection({ children, className = "", id }: RevealSectionProps) {
   return (
     <motion.section
       id={id}
@@ -257,7 +272,13 @@ function RevealSection({ children, className = "", id }) {
   );
 }
 
-function PremiumPhotoButton({ children, className = "", onClick }) {
+type PremiumPhotoButtonProps = {
+  children: ReactNode;
+  className?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+};
+
+function PremiumPhotoButton({ children, className = "", onClick }: PremiumPhotoButtonProps) {
   return (
     <button
       type="button"
@@ -271,7 +292,7 @@ function PremiumPhotoButton({ children, className = "", onClick }) {
 
 export default function DenitsaHomepagePreview() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <main className="min-h-screen bg-[#F5F1EA] text-[#2D2A26]">
@@ -326,7 +347,7 @@ export default function DenitsaHomepagePreview() {
             initial={{ opacity: 0, filter: "blur(8px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, filter: "blur(8px)" }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.45, ease: smoothEase }}
             className="fixed inset-0 z-[90] bg-[#2D2A26]/95 px-6 py-6 text-white backdrop-blur-2xl lg:hidden"
           >
             <div className="flex items-center justify-between">
@@ -534,7 +555,7 @@ export default function DenitsaHomepagePreview() {
 
       <RevealSection className="relative overflow-hidden bg-[#F5F1EA] py-24 md:py-32">
         <div className="pointer-events-none absolute inset-x-0 -top-10 z-10 h-24 bg-gradient-to-b from-[#F5F1EA] to-transparent" />
-        <motion.div initial={{ opacity: 0.15, scale: 1.02 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0">
+        <motion.div initial={{ opacity: 0.15, scale: 1.02 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 1.4, ease: softEase }} className="absolute inset-0">
           <img src={territoryImage} alt="Территория Денницы" onError={safeImage} className="h-full w-full object-cover opacity-25" />
         </motion.div>
         <div className="absolute inset-0 bg-[#2D2A26]/45" />
@@ -714,7 +735,7 @@ export default function DenitsaHomepagePreview() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.45, ease: smoothEase }}
             onClick={() => setSelectedImage(null)}
           >
             <motion.button
@@ -724,8 +745,8 @@ export default function DenitsaHomepagePreview() {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              onClick={(event) => {
+              transition={{ duration: 0.35, ease: smoothEase }}
+              onClick={(event: MouseEvent<HTMLButtonElement>) => {
                 event.stopPropagation();
                 setSelectedImage(null);
               }}
@@ -738,7 +759,7 @@ export default function DenitsaHomepagePreview() {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, ease: smoothEase }}
             />
 
             <motion.img
@@ -749,8 +770,8 @@ export default function DenitsaHomepagePreview() {
               initial={{ opacity: 0, scale: 0.965, y: 18, filter: "blur(8px)" }}
               animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, scale: 0.975, y: 10, filter: "blur(6px)" }}
-              transition={{ duration: 0.62, ease: [0.16, 1, 0.3, 1] }}
-              onClick={(event) => event.stopPropagation()}
+              transition={{ duration: 0.62, ease: smoothEase }}
+              onClick={(event: MouseEvent<HTMLImageElement>) => event.stopPropagation()}
             />
           </motion.div>
         ) : null}
