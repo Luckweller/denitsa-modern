@@ -225,11 +225,11 @@ function safeImage(event: SyntheticEvent<HTMLImageElement>) {
   event.currentTarget.src = heroImage;
 }
 
-function DenitsaLogo() {
+function DenitsaLogo({ className = "" }: { className?: string }) {
   return (
-    <div className="leading-none text-white">
-      <div className="text-lg font-black uppercase tracking-[0.2em]">Денница</div>
-      <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.3em] text-white/70">База отдыха</div>
+    <div className={`font-premium leading-none text-white ${className}`}>
+      <div className="text-[17px] font-medium uppercase tracking-[0.34em]">Денница</div>
+      <div className="mt-2 text-[8.5px] font-normal uppercase tracking-[0.42em] text-white/52">База отдыха</div>
     </div>
   );
 }
@@ -311,32 +311,288 @@ export default function DenitsaHomepagePreview() {
           pointer-events: none;
         }
         .premium-photo:hover::after { opacity: 1; }
+        .site-header-glass {
+          background:
+            linear-gradient(
+              180deg,
+              rgba(16, 28, 34, 0.58) 0%,
+              rgba(14, 24, 30, 0.42) 55%,
+              rgba(12, 22, 28, 0.48) 100%
+            );
+          backdrop-filter: blur(18px) saturate(1.25);
+          -webkit-backdrop-filter: blur(18px) saturate(1.25);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+          box-shadow:
+            0 1px 0 rgba(255, 255, 255, 0.06) inset,
+            0 8px 32px rgba(8, 16, 20, 0.12);
+        }
+        .site-nav-link {
+          position: relative;
+          font-family: "Inter", "Manrope", "Helvetica Neue", Arial, sans-serif;
+          font-weight: 500;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          font-size: 11px;
+          color: rgba(255, 255, 255, 0.68);
+          transition: color 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .site-nav-link::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          bottom: -7px;
+          width: calc(100% - 0.35em);
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(231, 223, 211, 0.75), transparent);
+          transform: translateX(-50%) scaleX(0);
+          transform-origin: center;
+          transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .site-nav-link:hover { color: rgba(255, 255, 255, 0.96); }
+        .site-nav-link:hover::after { transform: translateX(-50%) scaleX(1); }
+        .site-header-phone {
+          font-family: "Inter", "Manrope", "Helvetica Neue", Arial, sans-serif;
+          font-weight: 400;
+          letter-spacing: 0.1em;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.7);
+          transition: color 400ms cubic-bezier(0.16, 1, 0.3, 1), background 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .site-header-phone:hover {
+          color: rgba(255, 255, 255, 0.95);
+          background: rgba(255, 255, 255, 0.05);
+        }
+        .site-header-max {
+          font-family: "Inter", "Manrope", "Helvetica Neue", Arial, sans-serif;
+          font-weight: 500;
+          letter-spacing: 0.22em;
+          font-size: 11px;
+        }
+        .hero-media {
+          filter: saturate(1.14) contrast(1.07) brightness(1.04);
+        }
+        .hero-media-mobile {
+          filter: saturate(1.1) contrast(1.05) brightness(1.02);
+        }
+        .hero-color-grade {
+          pointer-events: none;
+          opacity: 0.92;
+          background:
+            radial-gradient(ellipse 68% 48% at 18% 34%, rgba(108, 158, 92, 0.16), transparent 56%),
+            radial-gradient(ellipse 58% 44% at 82% 28%, rgba(88, 148, 178, 0.12), transparent 54%),
+            radial-gradient(ellipse 48% 36% at 52% 68%, rgba(179, 138, 90, 0.11), transparent 50%),
+            linear-gradient(180deg, rgba(255, 248, 235, 0.08) 0%, transparent 32%);
+          mix-blend-mode: soft-light;
+        }
+        .hero-cinematic-overlay {
+          pointer-events: none;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(12, 20, 18, 0.36) 0%,
+              rgba(12, 20, 18, 0.1) 11%,
+              transparent 24%
+            ),
+            linear-gradient(
+              0deg,
+              rgba(16, 22, 20, 0.1) 0%,
+              transparent 16%
+            ),
+            radial-gradient(
+              ellipse 115% 95% at 50% 50%,
+              transparent 52%,
+              rgba(14, 20, 18, 0.1) 100%
+            );
+        }
+        .hero-text-scrim {
+          pointer-events: none;
+          background: radial-gradient(
+            ellipse 72% 40% at 50% 47%,
+            rgba(18, 24, 20, 0.22) 0%,
+            rgba(18, 24, 20, 0.08) 48%,
+            transparent 72%
+          );
+        }
+        .hero-copy h1 {
+          text-shadow:
+            0 3px 36px rgba(8, 14, 12, 0.48),
+            0 1px 8px rgba(8, 14, 12, 0.32);
+        }
+        .hero-copy p {
+          text-shadow:
+            0 2px 24px rgba(8, 14, 12, 0.42),
+            0 1px 4px rgba(8, 14, 12, 0.24);
+        }
+        .hero-btn-rooms {
+          border: 1px solid rgba(196, 184, 160, 0.28);
+          background: rgba(74, 78, 66, 0.38);
+          color: rgba(245, 241, 234, 0.94);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.12),
+            0 10px 32px rgba(8, 14, 12, 0.18);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          transition:
+            background 300ms cubic-bezier(0.16, 1, 0.3, 1),
+            border-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+            box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-btn-rooms:hover {
+          border-color: rgba(212, 200, 176, 0.38);
+          background: rgba(86, 90, 76, 0.48);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.16),
+            0 12px 36px rgba(8, 14, 12, 0.22);
+        }
+        @media (max-width: 767px) {
+          .hero-color-grade {
+            opacity: 0.88;
+            background:
+              radial-gradient(ellipse 72% 50% at 16% 36%, rgba(108, 158, 92, 0.14), transparent 58%),
+              radial-gradient(ellipse 62% 42% at 84% 30%, rgba(72, 118, 138, 0.06), transparent 56%),
+              radial-gradient(ellipse 52% 38% at 50% 72%, rgba(179, 138, 90, 0.12), transparent 52%),
+              linear-gradient(180deg, rgba(255, 248, 235, 0.06) 0%, transparent 28%);
+          }
+          .hero-text-scrim {
+            background:
+              radial-gradient(
+                ellipse 88% 48% at 50% 42%,
+                rgba(18, 24, 20, 0.26) 0%,
+                rgba(18, 24, 20, 0.1) 46%,
+                transparent 70%
+              );
+          }
+          .hero-mobile-bottom-warm {
+            pointer-events: none;
+            background:
+              linear-gradient(
+                0deg,
+                rgba(72, 58, 44, 0.14) 0%,
+                rgba(139, 118, 88, 0.08) 22%,
+                rgba(179, 138, 90, 0.04) 38%,
+                transparent 58%
+              );
+          }
+          .hero-copy h1 {
+            font-size: 31px;
+            line-height: 1.06;
+          }
+          .hero-copy p {
+            margin-top: 1.2rem;
+            max-width: 17rem;
+            font-size: 14px;
+            line-height: 1.58;
+          }
+          .hero-copy .hero-badges-wrap {
+            margin-top: 2.25rem;
+            gap: 0.375rem;
+          }
+          .hero-copy .hero-buttons-wrap {
+            margin-top: 2.875rem;
+            gap: 0.625rem;
+          }
+          .hero-badge {
+            border-color: rgba(196, 184, 160, 0.16);
+            background: rgba(74, 78, 66, 0.18);
+            padding: 0.2rem 0.55rem;
+            font-size: 9.5px;
+            line-height: 1.15;
+            letter-spacing: 0.045em;
+            color: rgba(245, 241, 234, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+          }
+          .hero-btn-book {
+            min-height: 48px;
+            padding: 0.7rem 1.5rem;
+            font-size: 14px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+          }
+          .hero-btn-rooms {
+            min-height: 48px;
+            padding: 0.7rem 1.5rem;
+            font-size: 14px;
+            border-color: rgba(196, 184, 160, 0.28);
+            background: rgba(68, 72, 60, 0.4);
+            box-shadow:
+              inset 0 1px 0 rgba(255, 255, 255, 0.08),
+              0 6px 24px rgba(8, 14, 12, 0.14);
+          }
+        }
+        @media (min-width: 768px) {
+          .hero-cinematic-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(12, 20, 18, 0.32) 0%,
+                rgba(12, 20, 18, 0.08) 12%,
+                transparent 26%
+              ),
+              linear-gradient(
+                0deg,
+                rgba(16, 22, 20, 0.08) 0%,
+                transparent 14%
+              ),
+              radial-gradient(
+                ellipse 110% 92% at 50% 50%,
+                transparent 54%,
+                rgba(14, 20, 18, 0.08) 100%
+              );
+          }
+          .hero-text-scrim {
+            background: radial-gradient(
+              ellipse 68% 38% at 50% 46%,
+              rgba(18, 24, 20, 0.2) 0%,
+              rgba(18, 24, 20, 0.06) 50%,
+              transparent 74%
+            );
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-media,
+          .hero-media-mobile { filter: none; }
+        }
       `}</style>
 
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-2xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 text-white lg:px-8">
-          <a href="#" className="block origin-left scale-90">
+      <header className="site-header-glass fixed left-0 right-0 top-0 z-50">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 text-white lg:px-8 lg:py-[1.125rem]">
+          <a href="#" className="block shrink-0 transition-opacity duration-300 hover:opacity-88">
             <DenitsaLogo />
           </a>
 
-          <nav className="hidden items-center gap-10 text-[13px] uppercase tracking-[0.18em] text-white/65 lg:flex">
-            <a href="#rooms" className="hover:text-white">Номера</a>
-            <a href="#territory" className="hover:text-white">Территория</a>
-            <a href="#services" className="hover:text-white">Баня</a>
-            <a href="#cafe" className="hover:text-white">Кафе</a>
-            <a href="#contacts" className="hover:text-white">Контакты</a>
+          <nav className="hidden items-center gap-10 xl:gap-11 lg:flex">
+            {[
+              ["Номера", "#rooms"],
+              ["Территория", "#territory"],
+              ["Баня", "#services"],
+              ["Кафе", "#cafe"],
+              ["Контакты", "#contacts"],
+            ].map(([label, href]) => (
+              <a key={label} href={href} className="site-nav-link">
+                {label}
+              </a>
+            ))}
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <a className="rounded-full border border-white/15 px-5 py-2 text-sm text-white/80 transition duration-300 hover:bg-white/10 hover:text-white" href={phoneHref}>{phone}</a>
-            <a className="group relative overflow-hidden rounded-full bg-white/95 px-6 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-[#2D2A26] shadow-[0_14px_40px_rgba(255,255,255,0.14)] ring-1 ring-white/35 transition duration-300 hover:-translate-y-0.5 hover:bg-[#F5F1EA] hover:shadow-[0_18px_50px_rgba(255,255,255,0.2)]" href={maxHref}>
-              <span className="pointer-events-none absolute inset-y-0 -left-10 w-8 rotate-12 bg-white/45 blur-md transition duration-700 group-hover:left-[120%]" />
-              <span className="relative">MAX</span>
+            <a className="site-header-phone rounded-full px-4 py-2.5" href={phoneHref}>
+              {phone}
+            </a>
+            <a
+              className="site-header-max rounded-full border border-white/20 bg-white/[0.94] px-6 py-2.5 text-[#2D2A26] uppercase shadow-[0_6px_24px_rgba(0,0,0,0.14),inset_0_1px_0_rgba(255,255,255,0.65)] transition duration-300 hover:border-white/30 hover:bg-white hover:shadow-[0_10px_32px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.8)]"
+              href={maxHref}
+            >
+              MAX
             </a>
           </div>
 
-          <button onClick={() => setIsMenuOpen(true)} className="rounded-full border border-white/25 p-2 lg:hidden" aria-label="Открыть меню">
-            <Menu className="h-5 w-5" />
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen(true)}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/90 backdrop-blur-sm transition duration-300 hover:border-white/25 hover:bg-white/10 lg:hidden"
+            aria-label="Открыть меню"
+          >
+            <Menu className="h-5 w-5" strokeWidth={1.75} />
           </button>
         </div>
       </header>
@@ -348,16 +604,21 @@ export default function DenitsaHomepagePreview() {
             animate={{ opacity: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, filter: "blur(8px)" }}
             transition={{ duration: 0.45, ease: smoothEase }}
-            className="fixed inset-0 z-[90] bg-[#2D2A26]/95 px-6 py-6 text-white backdrop-blur-2xl lg:hidden"
+            className="fixed inset-0 z-[90] bg-gradient-to-b from-[#2D2A26]/98 via-[#2D2A26]/96 to-[#1f1c19]/98 px-6 py-6 text-white backdrop-blur-2xl lg:hidden"
           >
             <div className="flex items-center justify-between">
               <DenitsaLogo />
-              <button type="button" onClick={() => setIsMenuOpen(false)} className="rounded-full border border-white/20 p-3">
-                <X className="h-5 w-5" />
+              <button
+                type="button"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.06]"
+                aria-label="Закрыть меню"
+              >
+                <X className="h-5 w-5" strokeWidth={1.75} />
               </button>
             </div>
 
-            <nav className="mt-16 grid gap-6 text-4xl font-semibold tracking-[-0.04em]">
+            <nav className="font-premium mt-14 grid gap-6">
               {[
                 ["Номера", "#rooms"],
                 ["Территория", "#territory"],
@@ -365,13 +626,30 @@ export default function DenitsaHomepagePreview() {
                 ["Кафе", "#cafe"],
                 ["Контакты", "#contacts"],
               ].map(([title, href]) => (
-                <a key={title} href={href} onClick={() => setIsMenuOpen(false)}>{title}</a>
+                <a
+                  key={title}
+                  href={href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-2xl font-medium uppercase tracking-[0.14em] text-white/92 transition hover:text-[#E7DFD3]"
+                >
+                  {title}
+                </a>
               ))}
             </nav>
 
-            <div className="absolute bottom-8 left-6 right-6 grid gap-3">
-              <a href={maxHref} className="rounded-full bg-white px-6 py-4 text-center font-medium text-[#2D2A26]">Написать в MAX</a>
-              <a href={phoneHref} className="rounded-full border border-white/20 px-6 py-4 text-center font-medium text-white">{phone}</a>
+            <div className="font-premium absolute bottom-8 left-6 right-6 grid gap-3">
+              <a
+                href={maxHref}
+                className="rounded-full bg-white/[0.94] px-6 py-4 text-center text-[12px] font-medium uppercase tracking-[0.18em] text-[#2D2A26] shadow-[0_12px_40px_rgba(0,0,0,0.2)]"
+              >
+                Написать в MAX
+              </a>
+              <a
+                href={phoneHref}
+                className="rounded-full border border-white/15 bg-white/[0.04] px-6 py-4 text-center text-[13px] font-normal tracking-[0.1em] text-white/88"
+              >
+                {phone}
+              </a>
             </div>
           </motion.div>
         ) : null}
@@ -379,63 +657,80 @@ export default function DenitsaHomepagePreview() {
 
       <section className="relative min-h-[100svh] overflow-hidden md:min-h-[100vh]">
         <video
-  autoPlay
-  muted
-  loop
-  playsInline
-  preload="metadata"
-  poster={heroImage}
-  className="absolute inset-0 h-full w-full object-cover md:hidden"
->
-  <source src="/videos/hero-mobile.webm" type="video/webm" />
-  <source src="/videos/hero-mobile.mp4" type="video/mp4" />
-</video>
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={heroImage}
+          className="hero-media-mobile absolute inset-0 h-full w-full object-cover md:hidden"
+        >
+          <source src="/videos/hero-mobile.webm" type="video/webm" />
+          <source src="/videos/hero-mobile.mp4" type="video/mp4" />
+        </video>
 
-{/* Desktop hero video */}
-<video
-  autoPlay
-  muted
-  loop
-  playsInline
-  preload="metadata"
-  poster={heroImage}
-  className="absolute inset-0 hidden h-full w-full object-cover md:block"
->
-  <source src="/videos/hero-loop.webm" type="video/webm" />
-  <source src="/videos/hero-loop.mov" type="video/quicktime" />
-</video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/42 via-black/18 to-black/36 md:from-black/34 md:via-black/10 md:to-black/22" />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#B38A5A]/5 blur-[120px]" />
-        <div className="pointer-events-none absolute bottom-20 right-10 h-64 w-64 rounded-full bg-white/3 blur-[90px]" />
-        
-        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col items-center justify-center px-5 pb-16 pt-32 text-center md:min-h-[100vh] md:px-6 md:pb-24 md:pt-32 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ ...smoothTransition, delay: 0.15 }} className="flex flex-col items-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs text-white/85 backdrop-blur-md sm:text-sm md:px-5">
-              <Mountain className="h-4 w-4" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={heroImage}
+          className="hero-media absolute inset-0 hidden h-full w-full object-cover md:block"
+        >
+          <source src="/videos/hero-loop.webm" type="video/webm" />
+          <source src="/videos/hero-loop.mov" type="video/quicktime" />
+        </video>
+
+        <div className="hero-color-grade absolute inset-0 z-[1]" aria-hidden />
+        <div className="hero-cinematic-overlay absolute inset-0 z-[2]" aria-hidden />
+        <div className="hero-text-scrim absolute inset-0 z-[3]" aria-hidden />
+        <div className="hero-mobile-bottom-warm absolute inset-0 z-[3] md:hidden" aria-hidden />
+
+        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col items-center justify-center px-5 pb-20 pt-28 text-center md:min-h-[100vh] md:px-6 md:pb-28 md:pt-36 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...smoothTransition, delay: 0.15 }}
+            className="hero-copy font-premium flex flex-col items-center"
+          >
+            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-white/78 backdrop-blur-md sm:text-[11px] md:px-5 md:py-2.5">
+              <Mountain className="h-3.5 w-3.5 text-[#E7DFD3]/90" strokeWidth={1.75} />
               Даховская · Адыгея
             </div>
 
-            <h1 className="max-w-5xl text-[38px] font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="max-w-5xl text-[36px] font-medium leading-[1.14] tracking-[-0.025em] text-white md:text-6xl md:leading-[1.12] lg:text-[4.25rem] lg:leading-[1.1]">
               Тихий отдых в горах Адыгеи
             </h1>
 
-            <p className="mt-5 max-w-[340px] text-[17px] leading-7 text-white/72 md:mt-6 md:max-w-2xl md:text-xl md:leading-8">
+            <p className="mt-6 max-w-[360px] text-[16px] font-normal leading-[1.78] tracking-[0.01em] text-white/76 md:mt-7 md:max-w-2xl md:text-[1.2rem] md:leading-[1.82]">
               Домики и номера с бассейном, банным комплексом и природой вокруг.
             </p>
 
-            <div className="mt-6 flex max-w-[330px] flex-wrap justify-center gap-2 text-[12px] text-white/80 sm:max-w-none sm:gap-3 sm:text-sm">
+            <div className="hero-badges-wrap mt-8 flex max-w-[340px] flex-wrap justify-center gap-1.5 sm:max-w-none md:gap-2.5">
               {["Бассейн", "Баня 200 м²", "Кафе", "Рядом с Лаго-Наки", "Можно с питомцами"].map((item) => (
-                <span key={item} className="rounded-full border border-white/15 bg-white/10 px-3.5 py-2 backdrop-blur-md md:px-4">{item}</span>
+                <span
+                  key={item}
+                  className="hero-badge rounded-full border px-3 py-1.5 text-[11px] font-medium tracking-[0.06em] backdrop-blur-sm md:border-white/[0.09] md:bg-white/[0.04] md:px-3.5 md:py-2 md:text-xs md:text-white/75"
+                >
+                  {item}
+                </span>
               ))}
             </div>
 
-            <div className="mt-8 flex w-full max-w-[350px] flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
-              <a href={maxHref} className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-medium text-[#2D2A26] shadow-[0_18px_60px_rgba(255,255,255,0.16)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#E7DFD3]">
-                <CalendarDays className="h-5 w-5" />
+            <div className="hero-buttons-wrap mt-10 flex w-full max-w-[360px] flex-col gap-2.5 sm:max-w-none md:flex-row md:justify-center md:gap-3.5">
+              <a
+                href={maxHref}
+                className="hero-btn-book inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-[#F5F1EA] px-7 py-3.5 text-[15px] font-medium tracking-[0.02em] text-[#2D2A26] shadow-[0_16px_48px_rgba(0,0,0,0.22)] transition duration-300 hover:bg-[#E7DFD3] hover:shadow-[0_20px_56px_rgba(0,0,0,0.26)] md:min-h-[52px]"
+              >
+                <CalendarDays className="h-[18px] w-[18px]" strokeWidth={1.75} />
                 Забронировать
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 opacity-70" strokeWidth={1.75} />
               </a>
-              <a href="#rooms" className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/25 bg-black/10 px-7 py-4 text-base font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-white/10">
+              <a
+                href="#rooms"
+                className="hero-btn-rooms inline-flex min-h-[52px] items-center justify-center rounded-full px-7 py-3.5 text-[15px] font-medium tracking-[0.02em] md:min-h-[52px]"
+              >
                 Смотреть номера
               </a>
             </div>
