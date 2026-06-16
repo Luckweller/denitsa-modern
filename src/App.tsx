@@ -1,10 +1,11 @@
-import { useState, type MouseEvent, type MouseEventHandler, type ReactNode, type SyntheticEvent } from "react";
+import { useState, useEffect, useRef, type MouseEvent, type MouseEventHandler, type ReactNode, type SyntheticEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Bath,
   CalendarDays,
   Car,
+  ChevronLeft,
   ChevronRight,
   Flame,
   MapPin,
@@ -42,13 +43,29 @@ const smoothTransition = {
   ease: smoothEase,
 };
 
+const teremokCover = "/images/rooms/teremok/teremok-exterior-main.jpg";
+const teremokGallery = [
+  "/images/rooms/teremok/teremok-exterior-main.jpg",
+  "/images/rooms/teremok/teremok-veranda.jpg",
+  "/images/rooms/teremok/teremok-kitchen-dining.jpg",
+  "/images/rooms/teremok/teremok-kitchen.jpg",
+  "/images/rooms/teremok/teremok-bedroom-ground-floor.jpg",
+  "/images/rooms/teremok/teremok-bathroom-shower.jpg",
+  "/images/rooms/teremok/teremok-bedroom-second-floor.jpg",
+  "/images/rooms/teremok/teremok-second-floor-bed.jpg",
+  "/images/rooms/teremok/teremok-second-floor-overview.jpg",
+  "/images/rooms/teremok/teremok-bathroom.jpg",
+];
+const teremokVideo = "/videos/rooms/teremok/teremok-tour.mp4";
+
 const rooms = [
   {
     title: "Теремок",
+    type: "Семейный дом в горах",
     guests: "до 6 гостей",
     area: "75 м²",
     price: "уточнить цену",
-    image: "https://denitsa.ru/wp-content/uploads/2023/07/photo_2023-07-27-15.30.11.jpeg",
+    image: teremokCover,
   },
   {
     title: "Семейный номер с камином",
@@ -99,16 +116,25 @@ const advantages = [
 const roomDetails = [
   {
     title: "Теремок",
+    type: "Семейный дом в горах",
     guests: "до 6 гостей",
     area: "75 м²",
     description:
-      "Двухэтажный дом со своей верандой. На первом этаже спальня, туалет с душевой и кухня. На втором этаже — спальные места, туалет и балкон.",
-    details: ["Двухэтажный дом", "Своя веранда", "Кухня", "Балкон", "Туалет и душевая"],
-    gallery: [
-      "https://denitsa.ru/wp-content/uploads/2023/07/photo_2023-07-27-15.30.11.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2023/07/photo_2023-07-27-15.30.12.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2023/07/photo_2023-07-27-15.30.56.jpeg",
+      "Двухэтажный семейный дом с верандой, балконом и видом на горы. Подходит для семьи или компании друзей.",
+    details: [
+      "2 этажа",
+      "до 6 гостей",
+      "полноценная кухня",
+      "веранда",
+      "балкон",
+      "2 санузла",
+      "душ",
+      "кондиционер",
+      "телевизор",
+      "вид на горы",
     ],
+    gallery: teremokGallery,
+    video: teremokVideo,
   },
   {
     title: "Семейный номер с камином",
@@ -292,7 +318,80 @@ function PremiumPhotoButton({ children, className = "", onClick }: PremiumPhotoB
 
 export default function DenitsaHomepagePreview() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [photoGallery, setPhotoGallery] = useState<{ images: string[]; index: number; label?: string | null } | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const activeThumbRef = useRef<HTMLButtonElement | null>(null);
+
+  const getDetailGallery = (room: (typeof roomDetails)[number]) => {
+    if (room.gallery?.length) return room.gallery;
+    const cover = rooms.find((item) => item.title === room.title)?.image;
+    return cover ? [cover] : [];
+  };
+
+  const getRoomGalleryLabel = (room: { title: string; type?: string }) => {
+    if ("type" in room && room.type && room.title) {
+      const typePrefix = room.type.split(" в ")[0];
+      return `${typePrefix} «${room.title}»`;
+    }
+    return null;
+  };
+
+  const getGalleryCounterText = (gallery: NonNullable<typeof photoGallery>) => {
+    const photoPart = `Фото ${gallery.index + 1} из ${gallery.images.length}`;
+    return gallery.label ? `${gallery.label} • ${photoPart}` : photoPart;
+  };
+
+  const openPhotoGallery = (images: string[], index = 0, label?: string | null) => {
+    if (!images.length) return;
+    setPhotoGallery({
+      images,
+      index: Math.max(0, Math.min(index, images.length - 1)),
+      label,
+    });
+  };
+
+  const setPhotoGalleryIndex = (index: number) => {
+    setPhotoGallery((current) =>
+      current ? { ...current, index: Math.max(0, Math.min(index, current.images.length - 1)) } : current,
+    );
+  };
+
+  const closePhotoGallery = () => setPhotoGallery(null);
+
+  const setSelectedImage = (image: string) => openPhotoGallery([image], 0);
+
+  const showPrevPhoto = () => {
+    setPhotoGallery((current) =>
+      current && current.images.length > 1
+        ? { ...current, index: (current.index - 1 + current.images.length) % current.images.length }
+        : current,
+    );
+  };
+
+  const showNextPhoto = () => {
+    setPhotoGallery((current) =>
+      current && current.images.length > 1
+        ? { ...current, index: (current.index + 1) % current.images.length }
+        : current,
+    );
+  };
+
+  useEffect(() => {
+    if (!photoGallery) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closePhotoGallery();
+      if (event.key === "ArrowLeft") showPrevPhoto();
+      if (event.key === "ArrowRight") showNextPhoto();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [photoGallery]);
+
+  useEffect(() => {
+    activeThumbRef.current?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, [photoGallery?.index]);
 
   return (
     <main className="min-h-screen bg-[#F5F1EA] text-[#2D2A26]">
@@ -311,6 +410,17 @@ export default function DenitsaHomepagePreview() {
           pointer-events: none;
         }
         .premium-photo:hover::after { opacity: 1; }
+        .room-gallery-thumbs {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+        }
+        .room-gallery-thumbs::-webkit-scrollbar {
+          height: 6px;
+        }
+        .room-gallery-thumbs::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.28);
+          border-radius: 999px;
+        }
         .site-header-glass {
           background:
             linear-gradient(
@@ -423,6 +533,24 @@ export default function DenitsaHomepagePreview() {
             0 2px 24px rgba(8, 14, 12, 0.42),
             0 1px 4px rgba(8, 14, 12, 0.24);
         }
+        .hero-location-badge {
+          margin-bottom: 0;
+        }
+        .hero-copy .hero-slogan {
+          margin: 0.9375rem 0 1.5rem;
+          max-width: 100%;
+          font-family: "Inter", "Manrope", "Helvetica Neue", Arial, sans-serif;
+          font-size: 17px;
+          font-weight: 300;
+          font-style: normal;
+          letter-spacing: 0.04em;
+          line-height: 1.35;
+          color: rgba(255, 255, 255, 0.85);
+          text-align: center;
+          text-shadow:
+            0 1px 18px rgba(8, 14, 12, 0.26),
+            0 1px 2px rgba(8, 14, 12, 0.14);
+        }
         .hero-btn-rooms {
           border: 1px solid rgba(196, 184, 160, 0.28);
           background: rgba(74, 78, 66, 0.38);
@@ -477,7 +605,13 @@ export default function DenitsaHomepagePreview() {
             font-size: 31px;
             line-height: 1.06;
           }
-          .hero-copy p {
+          .hero-copy .hero-slogan {
+            margin: 0.875rem 0 1.25rem;
+            max-width: 100%;
+            font-size: 14px;
+            line-height: 1.35;
+          }
+          .hero-copy p:not(.hero-slogan) {
             margin-top: 1.2rem;
             max-width: 17rem;
             font-size: 14px;
@@ -557,7 +691,7 @@ export default function DenitsaHomepagePreview() {
       <header className="site-header-glass fixed left-0 right-0 top-0 z-50">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 text-white lg:px-8 lg:py-[1.125rem]">
           <a href="#" className="block shrink-0 transition-opacity duration-300 hover:opacity-88">
-            <DenitsaLogo />
+            <img src="/logo-dennica.svg" alt="Денница" className="block h-auto w-[162px] md:w-[224px]" />
           </a>
 
           <nav className="hidden items-center gap-10 xl:gap-11 lg:flex">
@@ -694,10 +828,12 @@ export default function DenitsaHomepagePreview() {
             transition={{ ...smoothTransition, delay: 0.15 }}
             className="hero-copy font-premium flex flex-col items-center"
           >
-            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-white/78 backdrop-blur-md sm:text-[11px] md:px-5 md:py-2.5">
+            <div className="hero-location-badge inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-white/78 backdrop-blur-md sm:text-[11px] md:px-5 md:py-2.5">
               <Mountain className="h-3.5 w-3.5 text-[#E7DFD3]/90" strokeWidth={1.75} />
               Даховская · Адыгея
             </div>
+
+            <p className="hero-slogan">Здесь тишина лечит душу</p>
 
             <h1 className="max-w-5xl text-[36px] font-medium leading-[1.14] tracking-[-0.025em] text-white md:text-6xl md:leading-[1.12] lg:text-[4.25rem] lg:leading-[1.1]">
               Тихий отдых в горах Адыгеи
@@ -782,12 +918,22 @@ export default function DenitsaHomepagePreview() {
           <div className="grid gap-6 lg:grid-cols-3">
             {rooms.map((room) => (
               <article key={room.title} className="group flex h-full flex-col overflow-hidden rounded-[2.2rem] bg-white/8 ring-1 ring-white/10 transition duration-500 hover:bg-white/[0.11] hover:shadow-[0_24px_80px_rgba(0,0,0,0.38)]">
-                <PremiumPhotoButton onClick={() => setSelectedImage(room.image)} className="h-60 md:h-72">
+                <PremiumPhotoButton
+                  onClick={() => {
+                    const detail = roomDetails.find((item) => item.title === room.title);
+                    const gallery = detail ? getDetailGallery(detail) : [room.image];
+                    openPhotoGallery(gallery, 0, detail ? getRoomGalleryLabel(detail) : getRoomGalleryLabel(room));
+                  }}
+                  className="h-60 md:h-72"
+                >
                   <img src={room.image} alt={room.title} onError={safeImage} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
                 </PremiumPhotoButton>
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <h3 className="text-2xl font-semibold leading-tight tracking-[-0.03em] md:text-[28px]">{room.title}</h3>
+                  {"type" in room && room.type ? (
+                    <p className="mt-2 text-sm text-white/55">{room.type}</p>
+                  ) : null}
                   <div className="mt-4 flex flex-wrap gap-2 text-sm text-white/70">
                     <span className="rounded-full bg-white/10 px-3 py-1">{room.guests}</span>
                     <span className="rounded-full bg-white/10 px-3 py-1">{room.area}</span>
@@ -813,10 +959,10 @@ export default function DenitsaHomepagePreview() {
               <article id={`room-${room.title}`} key={room.title} className="overflow-hidden rounded-[2.5rem] bg-white shadow-sm ring-1 ring-[#2D2A26]/5 transition duration-500 hover:shadow-[0_24px_80px_rgba(45,42,38,0.12)]">
                 <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
                   <div className="grid grid-cols-2 gap-2 p-3 md:grid-cols-4 md:gap-3">
-                    {room.gallery.map((image, index) => (
+                    {getDetailGallery(room).map((image, index) => (
                       <PremiumPhotoButton
                         key={image}
-                        onClick={() => setSelectedImage(image)}
+                        onClick={() => openPhotoGallery(getDetailGallery(room), index, getRoomGalleryLabel(room))}
                         className={index === 0 ? "col-span-2 row-span-2 min-h-[320px] rounded-[2rem] md:col-span-2 md:min-h-[420px]" : "min-h-[155px] rounded-[1.4rem] md:min-h-[205px]"}
                       >
                         <img src={image} alt={`${room.title} — фото ${index + 1}`} onError={safeImage} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
@@ -826,7 +972,10 @@ export default function DenitsaHomepagePreview() {
                   </div>
 
                   <div className="flex flex-col justify-center p-7 md:p-12">
-                    <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#7A8B6F]">{room.guests} · {room.area}</p>
+                    <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#7A8B6F]">
+                      {"type" in room && room.type ? `${room.type} · ` : ""}
+                      {room.guests} · {room.area}
+                    </p>
                     <h3 className="text-3xl font-semibold tracking-[-0.04em] md:text-5xl">{room.title}</h3>
                     <p className="mt-6 text-base leading-7 text-[#2D2A26]/65 md:text-lg md:leading-8">{room.description}</p>
 
@@ -836,9 +985,18 @@ export default function DenitsaHomepagePreview() {
                       ))}
                     </div>
 
-                    <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                    <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                       <a href={maxHref} className="inline-flex items-center justify-center rounded-full bg-[#2D2A26] px-6 py-4 font-medium text-white transition duration-300 hover:bg-[#B38A5A]">Забронировать</a>
-                      <button type="button" onClick={() => setSelectedImage(room.gallery[0])} className="inline-flex items-center justify-center rounded-full border border-[#2D2A26]/15 px-6 py-4 font-medium text-[#2D2A26] transition duration-300 hover:bg-[#F5F1EA]">Смотреть фото</button>
+                      <button type="button" onClick={() => openPhotoGallery(getDetailGallery(room), 0, getRoomGalleryLabel(room))} className="inline-flex items-center justify-center rounded-full border border-[#2D2A26]/15 px-6 py-4 font-medium text-[#2D2A26] transition duration-300 hover:bg-[#F5F1EA]">Смотреть фото</button>
+                      {"video" in room && room.video ? (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedVideo(room.video!)}
+                          className="inline-flex items-center justify-center rounded-full border border-[#2D2A26]/15 px-6 py-4 font-medium text-[#2D2A26] transition duration-300 hover:bg-[#F5F1EA]"
+                        >
+                          Видеообзор
+                        </button>
+                      ) : null}
                     </div>
                   </div>
                 </div>
@@ -1024,49 +1182,155 @@ export default function DenitsaHomepagePreview() {
       </footer>
 
       <AnimatePresence>
-        {selectedImage ? (
+        {photoGallery ? (
+          <motion.div
+            className="fixed inset-0 z-[100] flex flex-col bg-black/92 p-3 backdrop-blur-xl sm:p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: smoothEase }}
+            onClick={closePhotoGallery}
+          >
+            <div className="relative z-10 flex items-center justify-between gap-3 px-1 pb-3 sm:px-2">
+              <p className="min-w-0 text-sm font-medium tracking-[0.02em] text-white/85 sm:text-base">
+                {getGalleryCounterText(photoGallery)}
+              </p>
+              <button
+                type="button"
+                aria-label="Закрыть фото"
+                className="rounded-full border border-white/15 bg-white/90 px-5 py-2.5 text-sm font-medium text-[#2D2A26] shadow-2xl backdrop-blur-xl transition duration-300 hover:bg-white"
+                onClick={(event: MouseEvent<HTMLButtonElement>) => {
+                  event.stopPropagation();
+                  closePhotoGallery();
+                }}
+              >
+                Закрыть
+              </button>
+            </div>
+
+            <div className="relative mx-auto flex min-h-0 w-full max-w-7xl flex-1 items-center justify-center px-1 sm:px-14">
+              {photoGallery.images.length > 1 ? (
+                <div className="flex w-full items-center justify-center gap-2 sm:contents">
+                  <button
+                    type="button"
+                    aria-label="Предыдущее фото"
+                    className="z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white backdrop-blur-md transition duration-300 hover:bg-black/65 sm:absolute sm:left-3 sm:top-1/2 sm:h-11 sm:w-11 sm:-translate-y-1/2"
+                    onClick={(event: MouseEvent<HTMLButtonElement>) => {
+                      event.stopPropagation();
+                      showPrevPhoto();
+                    }}
+                  >
+                    <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />
+                  </button>
+
+                  <motion.img
+                    key={photoGallery.images[photoGallery.index]}
+                    src={photoGallery.images[photoGallery.index]}
+                    alt={`Просмотр фото ${photoGallery.index + 1}`}
+                    onError={safeImage}
+                    onClick={(event: MouseEvent<HTMLImageElement>) => event.stopPropagation()}
+                    className="min-w-0 max-h-[72vh] w-full max-w-full flex-1 rounded-[1.25rem] object-contain shadow-[0_40px_120px_rgba(0,0,0,0.55)] sm:max-h-[76vh] sm:flex-none md:max-h-[80vh] md:rounded-[2rem]"
+                    initial={{ opacity: 0, scale: 0.985 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.985 }}
+                    transition={{ duration: 0.35, ease: smoothEase }}
+                  />
+
+                  <button
+                    type="button"
+                    aria-label="Следующее фото"
+                    className="z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white backdrop-blur-md transition duration-300 hover:bg-black/65 sm:absolute sm:right-3 sm:top-1/2 sm:h-11 sm:w-11 sm:-translate-y-1/2"
+                    onClick={(event: MouseEvent<HTMLButtonElement>) => {
+                      event.stopPropagation();
+                      showNextPhoto();
+                    }}
+                  >
+                    <ChevronRight className="h-5 w-5" strokeWidth={1.75} />
+                  </button>
+                </div>
+              ) : (
+                <motion.img
+                  key={photoGallery.images[photoGallery.index]}
+                  src={photoGallery.images[photoGallery.index]}
+                  alt={`Просмотр фото ${photoGallery.index + 1}`}
+                  onError={safeImage}
+                  onClick={(event: MouseEvent<HTMLImageElement>) => event.stopPropagation()}
+                  className="max-h-[72vh] w-full max-w-full rounded-[1.25rem] object-contain shadow-[0_40px_120px_rgba(0,0,0,0.55)] sm:max-h-[76vh] md:max-h-[80vh] md:rounded-[2rem]"
+                  initial={{ opacity: 0, scale: 0.985 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.985 }}
+                  transition={{ duration: 0.35, ease: smoothEase }}
+                />
+              )}
+            </div>
+
+            {photoGallery.images.length > 1 ? (
+              <div
+                className="room-gallery-thumbs mx-auto mt-3 w-full max-w-7xl overflow-x-auto px-1 pb-1 sm:mt-4 sm:px-2"
+                onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
+              >
+                <div className="mx-auto flex w-max gap-2">
+                  {photoGallery.images.map((image, index) => (
+                    <button
+                      key={`${image}-${index}`}
+                      type="button"
+                      ref={index === photoGallery.index ? activeThumbRef : null}
+                      aria-label={`Открыть фото ${index + 1}`}
+                      aria-current={index === photoGallery.index}
+                      onClick={() => setPhotoGalleryIndex(index)}
+                      className={`h-14 w-[4.5rem] shrink-0 overflow-hidden rounded-xl border border-white/10 transition duration-300 sm:h-16 sm:w-24 sm:rounded-2xl ${
+                        index === photoGallery.index
+                          ? "scale-105 opacity-100 ring-2 ring-white"
+                          : "opacity-60 hover:opacity-100"
+                      }`}
+                    >
+                      <img src={image} alt="" onError={safeImage} className="h-full w-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {selectedVideo ? (
           <motion.div
             className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: smoothEase }}
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelectedVideo(null)}
           >
             <motion.button
               type="button"
-              aria-label="Закрыть фото"
-              className="absolute right-5 top-5 rounded-full border border-white/15 bg-white/90 px-5 py-3 text-sm font-medium text-[#2D2A26] shadow-2xl backdrop-blur-xl transition duration-300 hover:bg-white"
+              aria-label="Закрыть видео"
+              className="absolute right-5 top-5 z-10 rounded-full border border-white/15 bg-white/90 px-5 py-3 text-sm font-medium text-[#2D2A26] shadow-2xl backdrop-blur-xl transition duration-300 hover:bg-white"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.35, ease: smoothEase }}
               onClick={(event: MouseEvent<HTMLButtonElement>) => {
                 event.stopPropagation();
-                setSelectedImage(null);
+                setSelectedVideo(null);
               }}
             >
               Закрыть
             </motion.button>
 
-            <motion.div
-              className="pointer-events-none absolute inset-x-8 bottom-8 top-8 rounded-[3rem] border border-white/10"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.6, ease: smoothEase }}
-            />
-
-            <motion.img
-              src={selectedImage}
-              alt="Просмотр фото"
-              onError={safeImage}
-              className="max-h-[90vh] max-w-[95vw] rounded-[2rem] object-contain shadow-[0_40px_120px_rgba(0,0,0,0.55)]"
-              initial={{ opacity: 0, scale: 0.965, y: 18, filter: "blur(8px)" }}
-              animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 0.975, y: 10, filter: "blur(6px)" }}
+            <motion.video
+              src={selectedVideo}
+              controls
+              autoPlay
+              playsInline
+              className="max-h-[85vh] max-w-[95vw] rounded-[2rem] shadow-[0_40px_120px_rgba(0,0,0,0.55)]"
+              initial={{ opacity: 0, scale: 0.965, y: 18 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.975, y: 10 }}
               transition={{ duration: 0.62, ease: smoothEase }}
-              onClick={(event: MouseEvent<HTMLImageElement>) => event.stopPropagation()}
+              onClick={(event: MouseEvent<HTMLVideoElement>) => event.stopPropagation()}
             />
           </motion.div>
         ) : null}
