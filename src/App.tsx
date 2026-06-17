@@ -15,6 +15,7 @@ import {
   PawPrint,
   Phone,
   Trees,
+  UtensilsCrossed,
   Waves,
   Wifi,
   X,
@@ -58,6 +59,132 @@ const teremokGallery = [
 ];
 const teremokVideo = "/videos/rooms/teremok/teremok-tour.mp4";
 
+const fireplaceHouseCover = "/images/rooms/fireplace-house/fireplace-house-living-room-fireplace.jpg";
+const fireplaceHouseGallery = [
+  "/images/rooms/fireplace-house/fireplace-house-living-room-fireplace.jpg",
+  "/images/rooms/fireplace-house/fireplace-house-kitchen.jpg",
+  "/images/rooms/fireplace-house/fireplace-house-dining-room.jpg",
+  "/images/rooms/fireplace-house/fireplace-house-master-bedroom.jpg",
+  "/images/rooms/fireplace-house/fireplace-house-bedroom-with-crib.jpg",
+  "/images/rooms/fireplace-house/fireplace-house-bathroom.jpg",
+  "/images/rooms/fireplace-house/fireplace-house-playroom.jpg",
+  "/images/rooms/fireplace-house/fireplace-house-veranda.jpg",
+];
+const fireplaceHouseVideo = "/videos/rooms/fireplace-house/fireplace-house-tour.mp4";
+
+const poolPremiumHouseCover = "/images/rooms/pool-premium-house/pool-premium-house-front-view.jpg";
+const poolPremiumHouseGallery = [
+  "/images/rooms/pool-premium-house/pool-premium-house-front-view.jpg",
+  "/images/rooms/pool-premium-house/pool-premium-house-veranda.jpg",
+  "/images/rooms/pool-premium-house/pool-premium-house-bedroom.jpg",
+  "/images/rooms/pool-premium-house/pool-premium-house-bedroom-wide.jpg",
+  "/images/rooms/pool-premium-house/pool-premium-house-living-area.jpg",
+  "/images/rooms/pool-premium-house/pool-premium-house-kitchen-area.jpg",
+  "/images/rooms/pool-premium-house/pool-premium-house-bedroom-sofa.jpg",
+  "/images/rooms/pool-premium-house/pool-premium-house-bed-view.jpg",
+  "/images/rooms/pool-premium-house/pool-premium-house-bed-view-2.jpg",
+  "/images/rooms/pool-premium-house/pool-premium-house-pool-view.jpg",
+];
+const poolPremiumHouseVideo = "/videos/rooms/pool-premium-house/pool-premium-house-tour.mp4";
+
+const tripleBalconyRoomCover = "/images/rooms/triple-balcony-room/triple-balcony-room-building-front.jpg";
+const tripleBalconyRoomGallery = [
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bedroom-main.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-balcony-view.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-building-front.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bedroom-front.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-territory-view.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bedroom-tv-view.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bathroom.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-balcony-corridor.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-third-bed.jpg",
+];
+const tripleBalconyRoomFeaturedImage = "/images/rooms/triple-balcony-room/triple-balcony-room-bedroom-main.jpg";
+const tripleBalconyRoomDetailGallery = [
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bedroom-main.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-building-front.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-balcony-view.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bedroom-front.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-territory-view.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bathroom.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bedroom-tv-view.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-balcony-corridor.jpg",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-third-bed.jpg",
+];
+const tripleBalconyRoomDetailGridClasses: Record<string, string> = {
+  [tripleBalconyRoomFeaturedImage]:
+    "col-span-2 row-span-2 min-h-[320px] rounded-[2rem] md:col-span-2 md:row-span-2 md:col-start-1 md:row-start-1 md:min-h-[420px]",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-building-front.jpg":
+    "min-h-[155px] rounded-[1.4rem] md:col-start-3 md:row-start-1 md:min-h-[205px]",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-balcony-view.jpg":
+    "min-h-[155px] rounded-[1.4rem] md:col-start-4 md:row-start-1 md:min-h-[205px]",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bedroom-front.jpg":
+    "min-h-[155px] rounded-[1.4rem] md:col-start-3 md:row-start-2 md:min-h-[205px]",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-territory-view.jpg":
+    "min-h-[155px] rounded-[1.4rem] md:col-start-4 md:row-start-2 md:min-h-[205px]",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bathroom.jpg":
+    "min-h-[155px] rounded-[1.4rem] md:col-start-1 md:row-start-3 md:min-h-[205px]",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-bedroom-tv-view.jpg":
+    "min-h-[155px] rounded-[1.4rem] md:col-start-2 md:row-start-3 md:min-h-[205px]",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-balcony-corridor.jpg":
+    "min-h-[155px] rounded-[1.4rem] md:col-start-3 md:row-start-3 md:min-h-[205px]",
+  "/images/rooms/triple-balcony-room/triple-balcony-room-third-bed.jpg":
+    "min-h-[155px] rounded-[1.4rem] md:col-start-4 md:row-start-3 md:min-h-[205px]",
+};
+const tripleBalconyRoomVideo = "/videos/rooms/triple-balcony-room/triple-balcony-room-tour.mp4";
+
+const familyLuxViewCover = "/images/rooms/family-lux-view/family-lux-view-house-front.jpg";
+const familyLuxViewGallery = [
+  "/images/rooms/family-lux-view/family-lux-view-house-front.jpg",
+  "/images/rooms/family-lux-view/family-lux-view-balcony-main.jpg",
+  "/images/rooms/family-lux-view/family-lux-view-balcony-view.jpg",
+  "/images/rooms/family-lux-view/family-lux-view-living-kitchen.jpg",
+  "/images/rooms/family-lux-view/family-lux-view-bedroom-master.jpg",
+  "/images/rooms/family-lux-view/family-lux-view-bedroom-second.jpg",
+  "/images/rooms/family-lux-view/family-lux-view-dining-area.jpg",
+  "/images/rooms/family-lux-view/family-lux-view-bathroom.jpg",
+];
+const familyLuxViewVideo = "/videos/rooms/family-lux-view/family-lux-view-tour.mp4";
+
+const comfortLogSecondFloorCover = "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-main.jpg";
+const comfortLogSecondFloorGallery = [
+  "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-main.jpg",
+  "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-building-front.jpg",
+  "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-balcony.jpg",
+  "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-room-main.jpg",
+  "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-room-overview.jpg",
+  "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-three-beds.jpg",
+  "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-double-bed.jpg",
+  "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-room-angle.jpg",
+  "/images/rooms/comfort-log-second-floor/comfort-log-second-floor-bathroom.jpg",
+];
+const comfortLogSecondFloorVideo = "/videos/rooms/comfort-log-second-floor/comfort-log-second-floor-main.mp4";
+
+const comfortLogFirstFloorCover = "/images/rooms/comfort-log-first-floor/comfort-log-first-floor-main.jpg";
+const comfortLogFirstFloorGallery = [
+  "/images/rooms/comfort-log-first-floor/comfort-log-first-floor-main.jpg",
+  "/images/rooms/comfort-log-first-floor/comfort-log-first-floor-building-front.jpg",
+  "/images/rooms/comfort-log-first-floor/comfort-log-first-floor-entrance.jpg",
+  "/images/rooms/comfort-log-first-floor/comfort-log-first-floor-room-main.jpg",
+  "/images/rooms/comfort-log-first-floor/comfort-log-first-floor-double-bed.jpg",
+  "/images/rooms/comfort-log-first-floor/comfort-log-first-floor-dining-area.jpg",
+  "/images/rooms/comfort-log-first-floor/comfort-log-first-floor-room-overview.jpg",
+];
+const comfortLogFirstFloorVideo = "/videos/rooms/comfort-log-first-floor/comfort-log-first-floor-main.mp4";
+
+const twoRoomStandardCover = "/images/rooms/two-room-standard/two-room-standard-main.jpg";
+const twoRoomStandardGallery = [
+  "/images/rooms/two-room-standard/two-room-standard-main.jpg",
+  "/images/rooms/two-room-standard/two-room-standard-building.jpg",
+  "/images/rooms/two-room-standard/two-room-standard-master-bedroom.jpg",
+  "/images/rooms/two-room-standard/two-room-standard-twin-bedroom.jpg",
+  "/images/rooms/two-room-standard/two-room-standard-twin-room-view.jpg",
+  "/images/rooms/two-room-standard/two-room-standard-room-corridor.jpg",
+  "/images/rooms/two-room-standard/two-room-standard-shower.jpg",
+  "/images/rooms/two-room-standard/two-room-standard-toilet.jpg",
+];
+const twoRoomStandardVideo = "/videos/rooms/two-room-standard/two-room-standard-main.mp4";
+
 const rooms = [
   {
     title: "Теремок",
@@ -68,40 +195,69 @@ const rooms = [
     image: teremokCover,
   },
   {
-    title: "Семейный номер с камином",
-    guests: "до 6 гостей",
+    title: "Семейный дом с камином",
+    type: "Отдельный дом с камином",
+    guests: "до 7 гостей",
     area: "75 м²",
     price: "уточнить цену",
-    image: "https://denitsa.ru/wp-content/uploads/2021/04/photo_2023-07-27-15.18.26.jpeg",
+    image: fireplaceHouseCover,
   },
   {
-    title: "Домик «Премиум»",
-    guests: "до 3 гостей",
-    area: "отдельный домик",
+    title: "Премиум-дом у бассейна",
+    type: "Отдельный сруб у бассейна",
+    guests: "до 4 гостей",
+    area: "36 м²",
     price: "уточнить цену",
-    image: "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-15.01.06.jpeg",
+    image: poolPremiumHouseCover,
   },
   {
-    title: "Трехместный номер с балконом",
+    title: "Трёхместный номер с балконом в корпусе",
+    type: "Уютный стандарт",
     guests: "до 3 гостей",
-    area: "балкон",
+    area: "15 м²",
     price: "уточнить цену",
-    image: "https://denitsa.ru/wp-content/uploads/2020/02/photo_2023-07-27-15.07.07.jpeg",
+    image: tripleBalconyRoomCover,
   },
   {
-    title: "Семейный номер «Люкс»",
+    title: "Семейный люкс с видом",
+    type: "С видовым балконом",
     guests: "до 6 гостей",
     area: "100 м²",
     price: "уточнить цену",
-    image: "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-15.04.31.jpeg",
+    image: familyLuxViewCover,
   },
   {
-    title: "Четырехместный «Комфорт»",
-    guests: "до 4 гостей",
-    area: "первый этаж",
+    title: "3-хместный Комфорт в двухэтажном срубе на втором этаже",
+    type: "Второй этаж сруба",
+    guests: "до 3 гостей",
+    area: "15 м²",
     price: "уточнить цену",
-    image: "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-14.43.12.jpeg",
+    image: comfortLogSecondFloorCover,
   },
+  {
+    title: "4-хместный Комфорт в двухэтажном срубе на первом этаже",
+    type: "Первый этаж сруба",
+    guests: "до 4 гостей",
+    area: "15 м²",
+    price: "уточнить цену",
+    image: comfortLogFirstFloorCover,
+  },
+  {
+    title: "Двухкомнатный номер в корпусе",
+    type: "Третий этаж корпуса",
+    guests: "до 4 гостей",
+    area: "45 м²",
+    price: "уточнить цену",
+    image: twoRoomStandardCover,
+  },
+];
+
+const territoryFeatures = [
+  { Icon: Waves, text: "Подогреваемый бассейн 34°C круглый год" },
+  { Icon: Trees, text: "Просторные открытые беседки для отдыха на свежем воздухе" },
+  { Icon: UtensilsCrossed, text: "Закрытые беседки общего пользования с кухонной зоной для приготовления блюд" },
+  { Icon: Car, text: "Бесплатная парковка на территории комплекса" },
+  { Icon: Flame, text: "Большой банный комплекс для компаний и семейного отдыха (дополнительная услуга)" },
 ];
 
 const advantages = [
@@ -112,6 +268,14 @@ const advantages = [
   { Icon: Wifi, title: "Wi‑Fi" },
   { Icon: Trees, title: "Беседки и мангалы" },
 ];
+
+const headerNav = [
+  ["Домики и номера", "#rooms"],
+  ["Территория", "#territory"],
+  ["Банный комплекс", "#services"],
+  ["Экскурсии", "#excursions"],
+  ["Контакты", "#contacts"],
+] as const;
 
 const roomDetails = [
   {
@@ -137,69 +301,162 @@ const roomDetails = [
     video: teremokVideo,
   },
   {
-    title: "Семейный номер с камином",
-    guests: "до 6 гостей",
+    title: "Семейный дом с камином",
+    type: "Отдельный дом с камином",
+    guests: "до 7 гостей",
     area: "75 м²",
     description:
-      "Семейный номер с камином: две изолированные спальни, гостиная, кухня, детский уголок, туалет и душевая.",
-    details: ["2 спальни", "Камин", "Кухня", "Детский уголок", "До 6 гостей"],
-    gallery: [
-      "https://denitsa.ru/wp-content/uploads/2021/04/photo_2023-07-27-15.18.26.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2021/04/photo_2023-07-27-15.18.28.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2021/04/photo_2023-07-27-15.18.30.jpeg",
+      "75 м² тепла и уюта. Отдельный дом на территории базы с настоящим камином, двумя спальнями, оборудованной кухней и атмосферой, в которую хочется возвращаться. Подходит для большой семьи или компании друзей.",
+    details: [
+      "75 м²",
+      "до 7 гостей",
+      "настоящий камин",
+      "2 спальни",
+      "оборудованная кухня",
+      "просторная гостиная",
+      "кондиционер",
+      "телевизор",
+      "горячая вода",
+      "отдельный дом",
     ],
+    gallery: fireplaceHouseGallery,
+    video: fireplaceHouseVideo,
   },
   {
-    title: "Домик «Премиум»",
-    guests: "до 3 гостей",
-    area: "отдельный домик",
+    title: "Премиум-дом у бассейна",
+    type: "Отдельный сруб у бассейна",
+    guests: "до 4 гостей",
+    area: "36 м²",
     description:
-      "Отдельный одноэтажный домик из рубленного бревна: двуспальная кровать, диван-кровать, кондиционер, холодильник и душевая.",
-    details: ["Отдельный домик", "Кондиционер", "Холодильник", "Душевая", "До 3 гостей"],
-    gallery: [
-      "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-15.01.06.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-15.01.08.jpeg",
-      territoryImage,
+      "36 м² уюта в отдельном срубе прямо у бассейна. Веранда, гостиная, кухня и спальня — идеальный формат для пары или небольшой семьи, которой важны тишина и близость к воде.",
+    details: [
+      "36 м²",
+      "до 4 гостей",
+      "отдельный сруб",
+      "у бассейна",
+      "веранда",
+      "кухня",
+      "спальня",
+      "кондиционер",
+      "телевизор",
+      "вид на бассейн",
     ],
+    gallery: poolPremiumHouseGallery,
+    video: poolPremiumHouseVideo,
   },
   {
-    title: "Трехместный номер с балконом",
+    title: "Трёхместный номер с балконом в корпусе",
+    type: "Уютный стандарт",
     guests: "до 3 гостей",
-    area: "балкон",
+    area: "15 м²",
     description:
-      "Номер на втором этаже гостиничного корпуса: двуспальная кровать, кресло-кровать, балкон, кондиционер, холодильник и душевая.",
-    details: ["Балкон", "Второй этаж", "Кондиционер", "Холодильник", "До 3 гостей"],
-    gallery: [
-      "https://denitsa.ru/wp-content/uploads/2020/02/photo_2023-07-27-15.07.07.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2020/02/photo_2023-07-27-15.07.09.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2020/02/photo_2023-07-27-15.07.11.jpeg",
+      "Уютный вариант на втором этаже с видом на реку и территорию базы.",
+    details: [
+      "15 м²",
+      "двуспальная кровать",
+      "односпальная кровать",
+      "балкон",
+      "холодильник",
+      "чайник",
+      "телевизор",
+      "сплит-система",
+      "санузел",
+      "полотенца",
     ],
+    gallery: tripleBalconyRoomGallery,
+    displayGallery: tripleBalconyRoomDetailGallery,
+    video: tripleBalconyRoomVideo,
   },
   {
-    title: "Семейный номер «Люкс»",
+    title: "Семейный люкс с видом",
+    type: "С видовым балконом",
     guests: "до 6 гостей",
     area: "100 м²",
     description:
-      "Просторный семейный номер: две изолированные спальни, гостиная, кухня, детский уголок, туалет и душевая.",
-    details: ["100 м²", "2 спальни", "Гостиная", "Кухня", "До 6 гостей"],
-    gallery: [
-      "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-15.04.29.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-15.04.31.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-15.04.33.jpeg",
+      "Просторный семейный номер площадью около 100 м² с двумя спальнями, оборудованной кухней, просторной гостиной и видовым балконом.",
+    details: [
+      "100 м²",
+      "до 6 гостей",
+      "2 спальни",
+      "оборудованная кухня",
+      "просторная гостиная",
+      "видовой балкон",
+      "кондиционер",
+      "телевизор",
+      "санузел",
+      "вид на территорию",
     ],
+    gallery: familyLuxViewGallery,
+    video: familyLuxViewVideo,
   },
   {
-    title: "Четырехместный «Комфорт»",
-    guests: "до 4 гостей",
-    area: "первый этаж",
+    title: "3-хместный Комфорт в двухэтажном срубе на втором этаже",
+    type: "Второй этаж сруба",
+    guests: "до 3 гостей",
+    area: "15 м²",
     description:
-      "Комфортный номер на первом этаже в двухэтажном срубе: двуспальная кровать, диван-кровать, кондиционер, холодильник и душевая.",
-    details: ["Первый этаж", "Диван-кровать", "Кондиционер", "Холодильник", "До 4 гостей"],
-    gallery: [
-      "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-14.43.12.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-14.43.15.jpeg",
-      "https://denitsa.ru/wp-content/uploads/2019/10/photo_2023-07-27-14.43.17.jpeg",
+      "Уютный номер площадью 15 м² на втором этаже деревянного сруба с отдельным входом, видом на территорию базы и комфортным размещением до 3 гостей.",
+    details: [
+      "15 м²",
+      "двуспальная кровать",
+      "односпальная кровать",
+      "холодильник",
+      "чайник",
+      "телевизор",
+      "кондиционер",
+      "набор посуды",
+      "полотенца",
+      "бойлер",
+      "вид на территорию",
     ],
+    gallery: comfortLogSecondFloorGallery,
+    video: comfortLogSecondFloorVideo,
+  },
+  {
+    title: "4-хместный Комфорт в двухэтажном срубе на первом этаже",
+    type: "Первый этаж сруба",
+    guests: "до 4 гостей",
+    area: "15 м²",
+    description:
+      "Уютный номер на первом этаже деревянного сруба с отдельным входом, двуспальной кроватью и раскладным диваном. Подходит для семьи с детьми или компании до 4 гостей.",
+    details: [
+      "15 м²",
+      "до 4 гостей",
+      "двуспальная кровать",
+      "раскладной диван",
+      "холодильник",
+      "чайник",
+      "телевизор",
+      "кондиционер",
+      "набор посуды",
+      "отдельный вход",
+      "первый этаж",
+    ],
+    gallery: comfortLogFirstFloorGallery,
+    video: comfortLogFirstFloorVideo,
+  },
+  {
+    title: "Двухкомнатный номер в корпусе",
+    type: "Третий этаж корпуса",
+    guests: "до 4 гостей",
+    area: "45 м²",
+    description:
+      "Просторный двухкомнатный номер площадью 45 м² на третьем этаже главного корпуса. Отдельная спальня с двуспальной кроватью, отдельная комната с двумя односпальными кроватями и раздельный санузел.",
+    details: [
+      "45 м²",
+      "до 4 гостей",
+      "двуспальная кровать",
+      "две односпальные кровати",
+      "телевизор в каждой комнате",
+      "холодильник",
+      "кондиционер",
+      "набор посуды",
+      "раздельный санузел",
+      "душ",
+      "третий этаж корпуса",
+    ],
+    gallery: twoRoomStandardGallery,
+    video: twoRoomStandardVideo,
   },
 ];
 
@@ -249,6 +506,10 @@ const cafeGallery = [
 function safeImage(event: SyntheticEvent<HTMLImageElement>) {
   event.currentTarget.onerror = null;
   event.currentTarget.src = heroImage;
+}
+
+function formatAreaDisplay(area: string) {
+  return area.replace(/(\d+)\s+(м²|m²)/gi, "$1\u00A0$2");
 }
 
 function DenitsaLogo({ className = "" }: { className?: string }) {
@@ -326,6 +587,38 @@ export default function DenitsaHomepagePreview() {
     if (room.gallery?.length) return room.gallery;
     const cover = rooms.find((item) => item.title === room.title)?.image;
     return cover ? [cover] : [];
+  };
+
+  const getDetailDisplayGallery = (room: (typeof roomDetails)[number]) => {
+    if ("displayGallery" in room && room.displayGallery?.length) return room.displayGallery;
+    return getDetailGallery(room);
+  };
+
+  const openPhotoGalleryFromDetail = (room: (typeof roomDetails)[number], displayIndex: number) => {
+    const gallery = getDetailGallery(room);
+    const image = getDetailDisplayGallery(room)[displayIndex];
+    const galleryIndex = gallery.indexOf(image);
+    openPhotoGallery(gallery, galleryIndex >= 0 ? galleryIndex : 0, getRoomGalleryLabel(room));
+  };
+
+  const isDetailFeaturedPhoto = (room: (typeof roomDetails)[number], image: string, index: number) => {
+    if (room.title === "Трёхместный номер с балконом в корпусе") {
+      return image === tripleBalconyRoomFeaturedImage;
+    }
+
+    return index === 0;
+  };
+
+  const getDetailPhotoClassName = (room: (typeof roomDetails)[number], image: string, index: number) => {
+    if (room.title === "Трёхместный номер с балконом в корпусе") {
+      return tripleBalconyRoomDetailGridClasses[image] ?? "min-h-[155px] rounded-[1.4rem] md:min-h-[205px]";
+    }
+
+    if (isDetailFeaturedPhoto(room, image, index)) {
+      return "col-span-2 row-span-2 min-h-[320px] rounded-[2rem] md:col-span-2 md:row-span-2 md:min-h-[420px]";
+    }
+
+    return "min-h-[155px] rounded-[1.4rem] md:min-h-[205px]";
   };
 
   const getRoomGalleryLabel = (room: { title: string; type?: string }) => {
@@ -436,6 +729,69 @@ export default function DenitsaHomepagePreview() {
             0 1px 0 rgba(255, 255, 255, 0.06) inset,
             0 8px 32px rgba(8, 16, 20, 0.12);
         }
+        .site-header-inner {
+          min-height: 3.25rem;
+        }
+        .site-header-logo {
+          display: block;
+          height: auto;
+          width: 162px;
+        }
+        .site-header-nav {
+          min-width: 0;
+        }
+        .site-header-action-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 2.25rem;
+          white-space: nowrap;
+        }
+        @media (min-width: 1024px) {
+          .site-header-inner {
+            min-height: 3.75rem;
+          }
+          .site-header-logo {
+            width: 185px;
+          }
+          .site-header-nav {
+            gap: 1.5rem;
+            margin-left: 95px;
+          }
+          .site-header-actions {
+            gap: 0.625rem;
+          }
+          .site-header-phone.site-header-action-btn {
+            padding-inline: 1rem;
+          }
+          .site-header-max.site-header-action-btn {
+            height: 2rem;
+            padding-inline: 1.125rem;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            line-height: 1;
+            border-color: rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.78);
+            color: rgba(45, 42, 38, 0.82);
+            box-shadow:
+              0 4px 14px rgba(0, 0, 0, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.42);
+          }
+          .site-header-max.site-header-action-btn:hover {
+            border-color: rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.88);
+            color: rgba(45, 42, 38, 0.92);
+            box-shadow:
+              0 6px 18px rgba(0, 0, 0, 0.12),
+              inset 0 1px 0 rgba(255, 255, 255, 0.52);
+          }
+        }
+        @media (min-width: 1280px) {
+          .site-header-nav {
+            gap: 1.7rem;
+            margin-left: 95px;
+          }
+        }
         .site-nav-link {
           position: relative;
           font-family: "Inter", "Manrope", "Helvetica Neue", Arial, sans-serif;
@@ -477,6 +833,44 @@ export default function DenitsaHomepagePreview() {
           font-weight: 500;
           letter-spacing: 0.22em;
           font-size: 11px;
+        }
+        .hero-badge-pool {
+          white-space: nowrap;
+        }
+        .hero-badges-wrap {
+          align-items: center;
+        }
+        .hero-badge {
+          border-color: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.045);
+          color: rgba(255, 255, 255, 0.76);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          line-height: 1.2;
+        }
+        @media (min-width: 768px) {
+          .hero-content-shell {
+            transform: translateY(3rem);
+          }
+          .hero-badges-wrap {
+            gap: 0.5rem;
+            max-width: none;
+          }
+          .hero-badge {
+            padding: 0.3rem 0.75rem;
+            font-size: 0.6875rem;
+            letter-spacing: 0.05em;
+            border-color: rgba(255, 255, 255, 0.09);
+            background: rgba(255, 255, 255, 0.04);
+          }
+          .hero-badge-pool {
+            padding-inline: 0.875rem;
+          }
+        }
+        @media (min-width: 1024px) {
+          .hero-badges-wrap {
+            flex-wrap: nowrap;
+          }
         }
         .hero-media {
           filter: saturate(1.14) contrast(1.07) brightness(1.04);
@@ -625,6 +1019,11 @@ export default function DenitsaHomepagePreview() {
             margin-top: 2.875rem;
             gap: 0.625rem;
           }
+          .hero-badge-pool {
+            white-space: nowrap;
+            padding-left: 0.7rem;
+            padding-right: 0.7rem;
+          }
           .hero-badge {
             border-color: rgba(196, 184, 160, 0.16);
             background: rgba(74, 78, 66, 0.18);
@@ -689,31 +1088,27 @@ export default function DenitsaHomepagePreview() {
       `}</style>
 
       <header className="site-header-glass fixed left-0 right-0 top-0 z-50">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 text-white lg:px-8 lg:py-[1.125rem]">
-          <a href="#" className="block shrink-0 transition-opacity duration-300 hover:opacity-88">
-            <img src="/logo-dennica.svg" alt="Денница" className="block h-auto w-[162px] md:w-[224px]" />
-          </a>
+        <div className="site-header-inner mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-3.5 text-white lg:gap-4 lg:px-8 lg:py-3">
+          <div className="flex min-w-0 flex-1 items-center lg:gap-0">
+            <a href="#" className="block shrink-0 transition-opacity duration-300 hover:opacity-88">
+              <img src="/logo-dennica.svg" alt="Денница" className="site-header-logo" />
+            </a>
 
-          <nav className="hidden items-center gap-10 xl:gap-11 lg:flex">
-            {[
-              ["Номера", "#rooms"],
-              ["Территория", "#territory"],
-              ["Баня", "#services"],
-              ["Кафе", "#cafe"],
-              ["Контакты", "#contacts"],
-            ].map(([label, href]) => (
-              <a key={label} href={href} className="site-nav-link">
-                {label}
-              </a>
-            ))}
-          </nav>
+            <nav className="site-header-nav hidden items-center lg:flex">
+              {headerNav.map(([label, href]) => (
+                <a key={href} href={href} className="site-nav-link shrink-0">
+                  {label}
+                </a>
+              ))}
+            </nav>
+          </div>
 
-          <div className="hidden items-center gap-3 lg:flex">
-            <a className="site-header-phone rounded-full px-4 py-2.5" href={phoneHref}>
+          <div className="site-header-actions hidden shrink-0 items-center lg:flex">
+            <a className="site-header-phone site-header-action-btn rounded-full px-4" href={phoneHref}>
               {phone}
             </a>
             <a
-              className="site-header-max rounded-full border border-white/20 bg-white/[0.94] px-6 py-2.5 text-[#2D2A26] uppercase shadow-[0_6px_24px_rgba(0,0,0,0.14),inset_0_1px_0_rgba(255,255,255,0.65)] transition duration-300 hover:border-white/30 hover:bg-white hover:shadow-[0_10px_32px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.8)]"
+              className="site-header-max site-header-action-btn rounded-full border uppercase transition duration-300"
               href={maxHref}
             >
               MAX
@@ -723,7 +1118,7 @@ export default function DenitsaHomepagePreview() {
           <button
             type="button"
             onClick={() => setIsMenuOpen(true)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/90 backdrop-blur-sm transition duration-300 hover:border-white/25 hover:bg-white/10 lg:hidden"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/90 backdrop-blur-sm transition duration-300 hover:border-white/25 hover:bg-white/10 lg:hidden"
             aria-label="Открыть меню"
           >
             <Menu className="h-5 w-5" strokeWidth={1.75} />
@@ -753,15 +1148,9 @@ export default function DenitsaHomepagePreview() {
             </div>
 
             <nav className="font-premium mt-14 grid gap-6">
-              {[
-                ["Номера", "#rooms"],
-                ["Территория", "#territory"],
-                ["Баня", "#services"],
-                ["Кафе", "#cafe"],
-                ["Контакты", "#contacts"],
-              ].map(([title, href]) => (
+              {headerNav.map(([title, href]) => (
                 <a
-                  key={title}
+                  key={href}
                   href={href}
                   onClick={() => setIsMenuOpen(false)}
                   className="text-2xl font-medium uppercase tracking-[0.14em] text-white/92 transition hover:text-[#E7DFD3]"
@@ -821,7 +1210,7 @@ export default function DenitsaHomepagePreview() {
         <div className="hero-text-scrim absolute inset-0 z-[3]" aria-hidden />
         <div className="hero-mobile-bottom-warm absolute inset-0 z-[3] md:hidden" aria-hidden />
 
-        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col items-center justify-center px-5 pb-20 pt-28 text-center md:min-h-[100vh] md:px-6 md:pb-28 md:pt-36 lg:px-8">
+        <div className="hero-content-shell relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col items-center justify-center px-5 pb-20 pt-28 text-center md:min-h-[100vh] md:px-6 md:pb-28 md:pt-36 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -843,13 +1232,19 @@ export default function DenitsaHomepagePreview() {
               Домики и номера с бассейном, банным комплексом и природой вокруг.
             </p>
 
-            <div className="hero-badges-wrap mt-8 flex max-w-[340px] flex-wrap justify-center gap-1.5 sm:max-w-none md:gap-2.5">
-              {["Бассейн", "Баня 200 м²", "Кафе", "Рядом с Лаго-Наки", "Можно с питомцами"].map((item) => (
+            <div className="hero-badges-wrap mt-8 flex max-w-[340px] flex-wrap justify-center gap-1.5 sm:max-w-none">
+              {[
+                { label: "Подогреваемый бассейн 34°C", className: "hero-badge-pool" },
+                { label: "Баня 200 м²" },
+                { label: "Кафе" },
+                { label: "Рядом с Лаго-Наки" },
+                { label: "Можно с питомцами" },
+              ].map((item) => (
                 <span
-                  key={item}
-                  className="hero-badge rounded-full border px-3 py-1.5 text-[11px] font-medium tracking-[0.06em] backdrop-blur-sm md:border-white/[0.09] md:bg-white/[0.04] md:px-3.5 md:py-2 md:text-xs md:text-white/75"
+                  key={item.label}
+                  className={`hero-badge rounded-full border px-3 py-1.5 text-[11px] font-medium tracking-[0.06em]${"className" in item && item.className ? ` ${item.className}` : ""}`}
                 >
-                  {item}
+                  {item.label}
                 </span>
               ))}
             </div>
@@ -936,7 +1331,9 @@ export default function DenitsaHomepagePreview() {
                   ) : null}
                   <div className="mt-4 flex flex-wrap gap-2 text-sm text-white/70">
                     <span className="rounded-full bg-white/10 px-3 py-1">{room.guests}</span>
-                    <span className="rounded-full bg-white/10 px-3 py-1">{room.area}</span>
+                    {"area" in room && room.area ? (
+                      <span className="whitespace-nowrap rounded-full bg-white/10 px-3 py-1">{formatAreaDisplay(room.area)}</span>
+                    ) : null}
                   </div>
                   <div className="mt-auto flex items-center justify-between gap-4 pt-8">
                     <div className="text-lg font-semibold">{room.price}</div>
@@ -958,12 +1355,16 @@ export default function DenitsaHomepagePreview() {
             {roomDetails.map((room) => (
               <article id={`room-${room.title}`} key={room.title} className="overflow-hidden rounded-[2.5rem] bg-white shadow-sm ring-1 ring-[#2D2A26]/5 transition duration-500 hover:shadow-[0_24px_80px_rgba(45,42,38,0.12)]">
                 <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
-                  <div className="grid grid-cols-2 gap-2 p-3 md:grid-cols-4 md:gap-3">
-                    {getDetailGallery(room).map((image, index) => (
+                  <div
+                    className={`grid grid-cols-2 gap-2 p-3 md:grid-cols-4 md:gap-3 ${
+                      room.title === "Трёхместный номер с балконом в корпусе" ? "md:grid-rows-3" : ""
+                    }`}
+                  >
+                    {getDetailDisplayGallery(room).map((image, index) => (
                       <PremiumPhotoButton
-                        key={image}
-                        onClick={() => openPhotoGallery(getDetailGallery(room), index, getRoomGalleryLabel(room))}
-                        className={index === 0 ? "col-span-2 row-span-2 min-h-[320px] rounded-[2rem] md:col-span-2 md:min-h-[420px]" : "min-h-[155px] rounded-[1.4rem] md:min-h-[205px]"}
+                        key={`${room.title}-${index}`}
+                        onClick={() => openPhotoGalleryFromDetail(room, index)}
+                        className={getDetailPhotoClassName(room, image, index)}
                       >
                         <img src={image} alt={`${room.title} — фото ${index + 1}`} onError={safeImage} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70" />
@@ -974,7 +1375,13 @@ export default function DenitsaHomepagePreview() {
                   <div className="flex flex-col justify-center p-7 md:p-12">
                     <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#7A8B6F]">
                       {"type" in room && room.type ? `${room.type} · ` : ""}
-                      {room.guests} · {room.area}
+                      {room.guests}
+                      {"area" in room && room.area ? (
+                        <>
+                          {" · "}
+                          <span className="whitespace-nowrap">{formatAreaDisplay(room.area)}</span>
+                        </>
+                      ) : null}
                     </p>
                     <h3 className="text-3xl font-semibold tracking-[-0.04em] md:text-5xl">{room.title}</h3>
                     <p className="mt-6 text-base leading-7 text-[#2D2A26]/65 md:text-lg md:leading-8">{room.description}</p>
@@ -1025,8 +1432,19 @@ export default function DenitsaHomepagePreview() {
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="rounded-[2.5rem] bg-[#E7DFD3] p-8 md:p-12">
             <p className="mb-4 text-sm uppercase tracking-[0.25em] text-[#7A8B6F]">Территория</p>
-            <h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">Банный комплекс, бассейн, беседки и вечерний свет</h2>
-            <p className="mt-7 text-lg leading-8 text-[#2D2A26]/65">На территории есть зоны для отдыха, бассейн, беседки и мангальные места. Отдельный акцент — банный комплекс более 200 м².</p>
+            <h2 className="text-[2.05rem] font-semibold tracking-[-0.04em] md:text-[3.45rem] md:leading-[1.05] min-[900px]:max-lg:whitespace-nowrap">
+              В вашем распоряжении
+            </h2>
+            <ul className="mt-7 space-y-3 text-lg leading-8 text-[#2D2A26]/65">
+              {territoryFeatures.map(({ Icon, text }) => (
+                <li key={text} className="flex gap-3">
+                  <span className="flex h-8 w-[1.125rem] shrink-0 items-center justify-center text-[#7A8B6F]">
+                    <Icon className="h-[17px] w-[17px] translate-y-[1px]" strokeWidth={1.75} aria-hidden />
+                  </span>
+                  <span>{text}</span>
+                </li>
+              ))}
+            </ul>
           </div>
           <PremiumPhotoButton onClick={() => setSelectedImage(territoryImage)} className="min-h-[420px] rounded-[2.5rem]">
             <img src={territoryImage} alt="Территория комплекса" onError={safeImage} className="h-full w-full object-cover transition duration-700 hover:scale-105" />
@@ -1056,7 +1474,7 @@ export default function DenitsaHomepagePreview() {
         </div>
       </RevealSection>
 
-      <RevealSection className="relative overflow-hidden bg-[#F5F1EA] py-20 md:py-24">
+      <RevealSection id="excursions" className="relative overflow-hidden bg-[#F5F1EA] py-20 md:py-24">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <SectionTitle eyebrow="Активный отдых" title="Экскурсии и маршруты по Адыгее" text="Можно выбрать спокойную прогулку или активный маршрут: экскурсии, конные прогулки, рафтинг и джиппинг." />
